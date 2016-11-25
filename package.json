@@ -1,0 +1,25 @@
+{
+  "name": "sokiable",
+  "version": "1.0.0",
+  "description": "A desktop social solution integrating your VK and FB profiles",
+  "contributors": [
+    "Alex Khomchenko <alexandr.khomchenko@gmail.com> (www.linkedin.com/in/alex-khomchenko)",
+    "Alex Shmatko <alexnotonfire@gmail.com> (www.linkedin.com/in/alex-shmatko-268551104)"
+  ],
+  "license": "UNLICENSED",
+  "private": "true",
+  "devDependencies": {
+    "electron": "^1.4.1",
+    "devtron": "^1.4.0"
+  },
+  "dependencies": {
+    "electron-debug": "^1.1.0",
+    "electron-pug": "^1.5.1",
+    "electron-window": "^0.8.1",
+    "nedb": "^1.8.0"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}
