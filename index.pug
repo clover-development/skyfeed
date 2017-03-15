@@ -1,11 +1,13 @@
-html
+html(ng-app='skyFeed')
   head
     meta(charset="UTF-8")
     title Hello World!
+    script(src='node_modules/angular/angular.min.js')
   body
     h1 Hello World!
     | We are using Node.js <script>document.write(process.versions.node)</script>,
     | Chromium <script>document.write(process.versions.chrome)</script>,
+    | Angular <script>document.write(angular.version.full)</script>,
     | and Electron <script>document.write(process.versions.electron)</script>.
 
   script.
