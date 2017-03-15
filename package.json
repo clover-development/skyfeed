@@ -14,6 +14,7 @@
     "electron-packager": "^8.3.0"
   },
   "dependencies": {
+    "angular": "^1.6.3",
     "electron-debug": "^1.1.0",
     "electron-pug": "^1.5.1",
     "electron-window": "^0.8.1",
