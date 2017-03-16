@@ -13,7 +13,7 @@ const window = require('electron-window')
 function createWindow () {
   // Create the browser window.
   const mainWindow = window.createWindow({ width: 800, height: 600, show: true  })
-  const indexPath = path.join(__dirname, 'index.pug')
+  const indexPath = path.join(__dirname, 'app/index.pug')
   mainWindow.showUrl(indexPath)
 }
 
