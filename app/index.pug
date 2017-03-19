@@ -5,9 +5,12 @@ html(ng-app='')
     link(rel='stylesheet', href='styles/main.css')
     script(src='node_modules/angular/angular.min.js')
   body
-    h1.login Login with...
-    a.vk_logo(href='#')
-    a.fb_logo(href='#')
+    header
+      a.btn.btn-news(href='#')
+      a.btn.btn-messages(href='#')
+      a.btn.btn-fb(href='#')
+      a.btn.btn-vk(href='#')
+      a.btn.btn-add(href='#')
   script.
     require('./node_modules/nedb/browser-version/out/nedb.min.js')
     require('./renderer.js')
