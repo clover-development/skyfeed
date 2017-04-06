@@ -1,14 +1,18 @@
 html(ng-app='skyFeed')
   head
     meta(charset="UTF-8")
-    title SkyFeed App
+    title Login
     link(rel='stylesheet', href='styles/main.css')
     script(src='../node_modules/angular/angular.js')
   body
     header
       a.btn.btn-news(href='#')
       a.btn.btn-messages(href='#')
-      a.btn.btn-add(href='./login.pug')
+      a.btn.btn-add(href='index.pug')
+  div.center-block(ng-controller='LoginCtrl')
+    h1.login-text Login with...
+    a.btn.btn-fb(ng-click='loginFb()')
+    a.btn.btn-vk(ng-click='loginVk()')
   script.
-    require('../node_modules/nedb/browser-version/out/nedb.min.js')
     require('./scripts/renderer.js')
+    require('../node_modules/nedb/browser-version/out/nedb.min.js')
