@@ -1,14 +1,10 @@
-html(ng-app='skyFeed')
+html(ng-app='skyfeed')
   head
     meta(charset="UTF-8")
-    title SkyFeed App
+    title SkyFeed
     link(rel='stylesheet', href='styles/main.css')
-    script(src='../node_modules/angular/angular.js')
-  body
-    header
-      a.btn.btn-news(href='#')
-      a.btn.btn-messages(href='#')
-      a.btn.btn-add(href='./login.pug')
+    link(rel='stylesheet', href='styles/icomoon.css')
+  body(ui-view="")
+
   script.
-    require('../node_modules/nedb/browser-version/out/nedb.min.js')
     require('./scripts/renderer.js')
