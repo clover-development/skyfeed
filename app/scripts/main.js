@@ -11,6 +11,7 @@ const {ipcMain} = require('electron');
 const pug = require('electron-pug')({pretty: true});
 const path = require('path');
 const window = require('electron-window');
+const login = require('./login');
 
 function createWindow () {
   const mainWindow = window.createWindow({ width: 1800, height: 1000, show: true  });
@@ -32,44 +33,30 @@ app.on('activate', function () {
 });
 
 ipcMain.on("facebook-button-clicked",function (event, arg) {
-    var options = {
+    let options = {
         client_id: '417849138574921',
         scopes: "public_profile",
-        redirect_uri: "https://www.facebook.com/connect/login_success.html"
+        redirect_uri: "https://www.facebook.com/connect/login_success.html",
+        display: 'popup',
+        response_type: 'token'
     };
-    var authWindow = window.createWindow({ width: 450, height: 300, show: false, 'node-integration': false });
-    var facebookAuthURL = `https://www.facebook.com/dialog/oauth?client_id=${options.client_id}&redirect_uri=${options.redirect_uri}&response_type=token&scope=${options.scopes}&display=popup`;
-    authWindow.showUrl(facebookAuthURL);
-    authWindow.show();
-    authWindow.webContents.on('did-get-redirect-request', function (event, oldUrl, newUrl) {
-        var raw_code = /access_token=([^&]*)/.exec(newUrl) || null;
-        access_token = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
-        error = /\?error=(.+)$/.exec(newUrl);
-        if(access_token) {
-            console.log(access_token);
-            authWindow.close();
-        }
+    login('https://www.facebook.com/dialog/oauth', options, function (token) {
+        console.log(token);
+    }, function (error) {
+        console.log(error);
     });
 });
 
 ipcMain.on("vk-button-clicked",function (event, arg) {
-  var options = {
-      client_id: '6001195',
-      scopes: "public_profile",
-      redirect_uri: "https://oauth.vk.com/blank.html"
-  };
-
-  var authWindow = window.createWindow({ width: 600, height: 400, show: false, 'node-integration': false });
-  var vkAuthURL = `https://oauth.vk.com/authorize?client_id=${options.client_id}&display=page&redirect_uri=${options.redirect_uri}&response_type=token`
-  authWindow.showUrl(vkAuthURL)
-  authWindow.show();
-  authWindow.webContents.on('did-get-redirect-request', function (event, oldUrl, newUrl) {
-    var raw_code = /access_token=([^&]*)/.exec(newUrl) || null;
-    access_token = (raw_code && raw_code.length > 1) ? raw_code[1] : null;
-    error = /\?error=(.+)$/.exec(newUrl);
-    if(access_token) {
-        console.log(access_token);
-        authWindow.close();
-    }
-  });
+    let options = {
+        display: 'page',
+        response_type: 'token',
+        client_id: '6001195',
+        redirect_uri: "https://oauth.vk.com/blank.html"
+    };
+    login('https://oauth.vk.com/authorize', options, function (token) {
+        console.log(token);
+    }, function (error) {
+        console.log(error);
+    });
 });

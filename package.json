@@ -16,9 +16,11 @@
   "dependencies": {
     "angular": "^1.6.3",
     "angular-ui-router": "^0.4.2",
+    "build-url": "^1.0.9",
     "electron-debug": "^1.1.0",
     "electron-pug": "^1.5.1",
     "electron-window": "^0.8.1",
+    "fb": "^2.0.0",
     "nedb": "^1.8.0"
   },
   "main": "app/scripts/main.js",
