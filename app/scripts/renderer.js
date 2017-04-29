@@ -59,4 +59,7 @@ skyfeed.controller("LoginCtrl", function ($scope, $http) {
   $scope.loginFb = function () {
       ipcRenderer.send('facebook-button-clicked', 'ping');
   }
+  $scope.loginVk = function () {
+      ipcRenderer.send('vk-button-clicked', 'ping');
+  }
 });
