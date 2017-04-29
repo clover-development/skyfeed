@@ -12,9 +12,12 @@ const pug = require('electron-pug')({pretty: true});
 const path = require('path');
 const window = require('electron-window');
 const login = require('./login');
+const FB = require('fb');
+
+let mainWindow = undefined;
 
 function createWindow () {
-  const mainWindow = window.createWindow({ width: 1800, height: 1000, show: true  });
+  mainWindow = window.createWindow({ width: 1800, height: 1000, show: true  });
   const indexPath = path.join(__dirname, '../index.pug');
   mainWindow.showUrl(indexPath);
   mainWindow.openDevTools();
@@ -42,6 +45,9 @@ ipcMain.on("facebook-button-clicked",function (event, arg) {
     };
     login('https://www.facebook.com/dialog/oauth', options, function (token) {
         console.log(token);
+        let fb = FB.withAccessToken(token);
+        global.facebookLogin = { client: fb };
+        mainWindow.webContents.send('login-success');
     }, function (error) {
         console.log(error);
     });
