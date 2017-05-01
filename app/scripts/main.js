@@ -8,7 +8,6 @@ const app = electron.app;
 const {ipcMain} = require('electron');
 
 // Dependencies
-const pug = require('electron-pug')({pretty: true});
 const path = require('path');
 const window = require('electron-window');
 const login = require('./login');
@@ -18,7 +17,7 @@ let mainWindow = undefined;
 
 function createWindow () {
   mainWindow = window.createWindow({ width: 1800, height: 1000, show: true  });
-  const indexPath = path.join(__dirname, '../index.pug');
+  const indexPath = path.join(__dirname, '../index.jade');
   mainWindow.showUrl(indexPath);
   mainWindow.openDevTools();
 }

@@ -3,7 +3,6 @@ const ipc = electron.ipcRenderer;
 const app = electron.app;
 const remote = electron.remote;
 const angular = require('angular');
-const $ = require('jquery');
 require('angular-ui-router');
 
 let skyfeed = angular.module('skyfeed', [
@@ -36,15 +35,15 @@ skyfeed.config([
             }
         ];
         $stateProvider.state('app', {
-            templateUrl: 'templates/layout.pug',
+            templateUrl: 'templates/layout.jade',
             controller: 'ApplicationController'
         }).state('app.feed', {
             url: '/feed',
             controller: 'FeedController',
-            templateUrl: 'templates/feed.pug'
+            templateUrl: 'templates/feed.jade'
         }).state('app.login', {
             url: '/login',
-            templateUrl: 'templates/login.pug',
+            templateUrl: 'templates/login.jade',
             controller: 'LoginCtrl'
         });
         $urlRouterProvider.otherwise('/feed');
