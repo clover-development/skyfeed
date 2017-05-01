@@ -83,7 +83,7 @@ skyfeed.controller('LoginCtrl', function ($scope, $http) {
         ipc.send('vk-button-clicked', 'ping');
     };
 
-    $scope.loginVk();
+    // $scope.loginVk();
 });
 
 skyfeed.service('$auth', function () {

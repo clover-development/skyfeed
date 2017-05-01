@@ -1,3 +1,5 @@
+$hover-color: #dfc872;
+
 body {
   margin: 0;
   padding: 0;
@@ -35,9 +37,41 @@ header {
     vertical-align: middle;
   }
   .btn:hover {
-    color: #dfc872;
+    color: $hover-color;
   }
 }
 .center {
   text-align: center;
+}
+
+.login-page {
+  .logins {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+
+    .login {
+      padding: 10px;
+      border-radius: 15px;
+      &:hover {
+          background: $hover-color;
+          transition: 500ms;
+      }
+
+      img {
+        display: block;
+        width: 200px;
+        height: 200px;
+      }
+      span {
+        font-family: Verdana, sans-serif;
+        display: block;
+        text-align: center;
+        font-size: larger;
+      }
+    }
+  }
 }
