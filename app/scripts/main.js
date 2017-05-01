@@ -12,7 +12,7 @@ const pug = require('electron-pug')({pretty: true});
 const path = require('path');
 const window = require('electron-window');
 const login = require('./login');
-const FB = require('fb');
+const VKApi = require('node-vkapi');
 
 let mainWindow = undefined;
 
@@ -38,16 +38,14 @@ app.on('activate', function () {
 ipcMain.on("facebook-button-clicked",function (event, arg) {
     let options = {
         client_id: '417849138574921',
-        scopes: "public_profile",
-        redirect_uri: "https://www.facebook.com/connect/login_success.html",
+        scope: 'public_profile,user_about_me,user_posts,user_friends',
+        redirect_uri: 'https://www.facebook.com/connect/login_success.html',
         display: 'popup',
-        response_type: 'token'
+        response_type: 'token',
+        auth_type: 'rerequest'
     };
     login('https://www.facebook.com/dialog/oauth', options, function (token) {
         console.log(token);
-        let fb = FB.withAccessToken(token);
-        global.facebookLogin = { client: fb };
-        mainWindow.webContents.send('login-success');
     }, function (error) {
         console.log(error);
     });
@@ -58,10 +56,14 @@ ipcMain.on("vk-button-clicked",function (event, arg) {
         display: 'page',
         response_type: 'token',
         client_id: '6001195',
-        redirect_uri: "https://oauth.vk.com/blank.html"
+        redirect_uri: 'https://oauth.vk.com/blank.html',
+        scope: '80902'
     };
     login('https://oauth.vk.com/authorize', options, function (token) {
         console.log(token);
+        let client = new VKApi({token : token});
+        global.vkLogin = { token: token, client: client };
+        mainWindow.webContents.send('login-success');
     }, function (error) {
         console.log(error);
     });

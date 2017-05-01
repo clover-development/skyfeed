@@ -21,7 +21,8 @@
     "electron-pug": "^1.5.1",
     "electron-window": "^0.8.1",
     "fb": "^2.0.0",
-    "nedb": "^1.8.0"
+    "nedb": "^1.8.0",
+    "node-vkapi": "^2.1.0"
   },
   "main": "app/scripts/main.js",
   "scripts": {
