@@ -41,7 +41,7 @@ skyfeed.config([
         }).state('app.feed', {
             url: '/feed',
             controller: 'FeedController',
-            templateUrl: 'templates/start.pug'
+            templateUrl: 'templates/feed.pug'
         }).state('app.login', {
             url: '/login',
             templateUrl: 'templates/login.pug',
@@ -62,25 +62,31 @@ skyfeed.controller('ApplicationController', function ($scope) {
 });
 
 skyfeed.controller('FeedController', function ($scope, $stateParams) {
+    $scope.items = [];
+
     $scope.load = function () {
         let login = remote.getGlobal('vkLogin');
         if (!login) return;
         let client = $scope.client = login.client;
 
-        console.log('HUY');
-        client.call('wall.post', {
-                friends_only: 0,
-                message: 'Post to wall via node-vkapi'
-            }).then(res => {
-                console.log('https://vk.com/wall' + res.user_id + '_' + res.post_id);
-            });
+        client.call('newsfeed.get', {}).then(res => {
+            $scope.items = res.items;
+            $scope.$apply();
+            console.log(res);
+        });
     };
 
     $scope.load();
 });
 
 skyfeed.controller('LoginCtrl', function ($scope, $http) {
-  $scope.loginVk = function () {
-      ipc.send('vk-button-clicked', 'ping');
-  };
+    $scope.loginVk = function () {
+        ipc.send('vk-button-clicked', 'ping');
+    };
+
+    $scope.loginVk();
+});
+
+skyfeed.service('$auth', function () {
+
 });
