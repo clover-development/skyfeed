@@ -16,7 +16,8 @@ const VKApi = require('node-vkapi');
 let mainWindow = undefined;
 
 function createWindow () {
-  mainWindow = window.createWindow({ width: 1800, height: 1000, show: true  });
+  const iconPath = path.join(__dirname, '../images/icon.png');
+  mainWindow = window.createWindow({ width: 1800, height: 1000, show: true, icon: iconPath });
   const indexPath = path.join(__dirname, '../index.jade');
   mainWindow.showUrl(indexPath);
   mainWindow.openDevTools();
