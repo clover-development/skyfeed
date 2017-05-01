@@ -38,18 +38,6 @@ header .icon {
 header .btn:hover {
   color: #dfc872;
 }
-.btn-vk {
-  background: url(../images/btn-vk.png) no-repeat;
-  background-size: contain;
-}
-.btn-fb {
-  background: url(../images/btn-fb.png) no-repeat;
-  background-size: contain;
-  margin-right: 10px;
-}
-.login-text {
-  text-align: center;
-}
 .center {
   text-align: center;
 }
