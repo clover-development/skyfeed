@@ -1,7 +1,4 @@
-const electron = require('electron');
-const ipc = electron.ipcRenderer;
-const app = electron.app;
-const remote = electron.remote;
+const {app, remote, ipcRenderer} = require('electron');
 const angular = require('angular');
 require('angular-ui-router');
 
@@ -11,8 +8,7 @@ let skyfeed = angular.module('skyfeed', [
 
 skyfeed.config([
     '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        let loginRequired, skipIfLoggedIn;
-        skipIfLoggedIn = [
+        let skipIfLoggedIn = [
             '$q', '$auth', function($q, $auth) {
                 let deferred = $q.defer();
                 if (false) {
@@ -23,7 +19,7 @@ skyfeed.config([
                 return deferred.promise;
             }
         ];
-        loginRequired = [
+        let loginRequired = [
             '$q', '$location', '$auth', function($q, $location, $auth) {
                 let deferred = $q.defer();
                 if (true) {
@@ -35,23 +31,23 @@ skyfeed.config([
             }
         ];
         $stateProvider.state('app', {
-            templateUrl: 'templates/layout.jade',
-            controller: 'ApplicationController'
+            controller: 'ApplicationController',
+            templateUrl: 'templates/layout.jade'
         }).state('app.feed', {
             url: '/feed',
             controller: 'FeedController',
             templateUrl: 'templates/feed.jade'
         }).state('app.login', {
             url: '/login',
-            templateUrl: 'templates/login.jade',
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
+            templateUrl: 'templates/login.jade'
         });
         $urlRouterProvider.otherwise('/feed');
     }
 ]);
 
 skyfeed.run(['$state', function ($state) {
-    ipc.on('login-success', function () {
+    ipcRenderer.on('login-success', function () {
         $state.go('app.feed');
     });
 }]);
@@ -60,18 +56,20 @@ skyfeed.controller('ApplicationController', function ($scope) {
 
 });
 
-skyfeed.controller('FeedController', function ($scope, $stateParams) {
+skyfeed.controller('FeedController', function ($scope, $state, $stateParams) {
     $scope.items = [];
 
     $scope.load = function () {
         let login = remote.getGlobal('vkLogin');
-        if (!login) return;
+        if (!login) {
+            return $state.go('app.login');
+        }
         let client = $scope.client = login.client;
 
-        client.call('newsfeed.get', {}).then(res => {
-            $scope.items = res.items;
+        client.getPosts(0, posts => {
+            $scope.items = posts;
             $scope.$apply();
-            console.log(res);
+            console.log('Get Posts Result: ', posts);
         });
     };
 
@@ -80,7 +78,7 @@ skyfeed.controller('FeedController', function ($scope, $stateParams) {
 
 skyfeed.controller('LoginCtrl', function ($scope, $http) {
     $scope.loginVk = function () {
-        ipc.send('vk-button-clicked', 'ping');
+        ipcRenderer.send('vk-button-clicked', 'ping');
     };
 
     // $scope.loginVk();

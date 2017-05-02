@@ -4,7 +4,7 @@ const buildUrl = require('build-url');
 const window = require('electron-window');
 
 module.exports = function (mainUrl, options, successCallback, errorCallback) {
-    let authWindow = window.createWindow({ width: 600, height: 400, show: false, 'node-integration': false });
+    let authWindow = window.createWindow({ width: 800, height: 600, show: false, 'node-integration': false });
     let url = buildUrl(mainUrl, { queryParams: options });
     authWindow.showUrl(url);
     authWindow.show();
