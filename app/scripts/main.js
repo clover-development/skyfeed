@@ -35,7 +35,7 @@ app.on('activate', function () {
   }
 });
 
-ipcMain.on("vk-button-clicked",function (event, arg) {
+ipcMain.on('vk-button-clicked', function () {
     let options = {
         display: 'page',
         response_type: 'token',
@@ -44,7 +44,7 @@ ipcMain.on("vk-button-clicked",function (event, arg) {
         scope: '80902'
     };
     oauthLogin('https://oauth.vk.com/authorize', options, function (token) {
-        let apiClient = new VKApi({token : token});
+        let apiClient = new VKApi({ token : token });
         let client = new VKClient(apiClient);
         loginService.addLogin({ label: 'vk', token: token, client: client });
         mainWindow.webContents.send('login-success');
