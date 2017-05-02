@@ -75,3 +75,19 @@ header {
     }
   }
 }
+
+.posts {
+  background: #fffdf7;
+  box-sizing: border-box;
+  padding: 5px;
+
+  .post {
+    background: white;
+    margin: 10px auto;
+    max-width: 650px;
+    padding: 15px;
+    text-align: justify;
+    border-radius: 3px;
+    border: 1px solid lightblue;
+  }
+}

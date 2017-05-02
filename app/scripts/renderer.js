@@ -54,9 +54,13 @@ skyfeed.run(['$state', function ($state) {
 }]);
 
 skyfeed.controller('ApplicationController', function ($scope) {
-    ipcRenderer.on('login-success', function () {
+    $scope.updateLogins = function () {
         $scope.logins = loginService.getLogins();
-    });
+    };
+
+    ipcRenderer.on('login-success', function () { $scope.updateLogins(); });
+
+    $scope.updateLogins();
 });
 
 skyfeed.controller('FeedController', function ($scope, $state, $stateParams) {
