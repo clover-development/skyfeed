@@ -46,7 +46,7 @@ ipcMain.on("vk-button-clicked",function (event, arg) {
     oauthLogin('https://oauth.vk.com/authorize', options, function (token) {
         let apiClient = new VKApi({token : token});
         let client = new VKClient(apiClient);
-        loginService.addLogin({ token: token, client: client });
+        loginService.addLogin({ label: 'vk', token: token, client: client });
         mainWindow.webContents.send('login-success');
     }, function (error) {
         console.log(error);
