@@ -7,6 +7,7 @@ require('electron-debug')({showDevTools: false});
 const path = require('path');
 const window = require('electron-window');
 const oauthLogin = require('./oauth-login');
+const loginService = require('./login-service-main');
 const VKApi = require('node-vkapi');
 const { VKClient } = require('./clients/vk-client');
 
@@ -45,7 +46,7 @@ ipcMain.on("vk-button-clicked",function (event, arg) {
     oauthLogin('https://oauth.vk.com/authorize', options, function (token) {
         let apiClient = new VKApi({token : token});
         let client = new VKClient(apiClient);
-        global.vkLogin = { token: token, client: client };
+        loginService.addLogin({ token: token, client: client });
         mainWindow.webContents.send('login-success');
     }, function (error) {
         console.log(error);

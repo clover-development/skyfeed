@@ -1,6 +1,7 @@
 const {app, remote, ipcRenderer} = require('electron');
 const angular = require('angular');
-require('angular-ui-router');
+const loginService = require('./login-service-renderer');
+const uiRouter = require('angular-ui-router');
 
 let skyfeed = angular.module('skyfeed', [
     'ui.router'
@@ -9,7 +10,7 @@ let skyfeed = angular.module('skyfeed', [
 skyfeed.config([
     '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         let skipIfLoggedIn = [
-            '$q', '$auth', function($q, $auth) {
+            '$q', function($q) {
                 let deferred = $q.defer();
                 if (false) {
                     deferred.reject();
@@ -20,7 +21,7 @@ skyfeed.config([
             }
         ];
         let loginRequired = [
-            '$q', '$location', '$auth', function($q, $location, $auth) {
+            '$q', '$location', function($q, $location) {
                 let deferred = $q.defer();
                 if (true) {
                     deferred.resolve();
@@ -60,16 +61,15 @@ skyfeed.controller('FeedController', function ($scope, $state, $stateParams) {
     $scope.items = [];
 
     $scope.load = function () {
-        let login = remote.getGlobal('vkLogin');
-        if (!login) {
-            return $state.go('app.login');
-        }
-        let client = $scope.client = login.client;
+        let logins = loginService.getLogins();
+        if (!logins.length) { return $state.go('app.login'); }
 
-        client.getPosts(0, posts => {
-            $scope.items = posts;
-            $scope.$apply();
-            console.log('Get Posts Result: ', posts);
+        logins.forEach(function (login) {
+            login.client.getPosts(0, posts => {
+                $scope.items = posts;
+                $scope.$apply();
+                console.log('Get Posts Result:\n', posts);
+            });
         });
     };
 
@@ -80,10 +80,4 @@ skyfeed.controller('LoginCtrl', function ($scope, $http) {
     $scope.loginVk = function () {
         ipcRenderer.send('vk-button-clicked', 'ping');
     };
-
-    // $scope.loginVk();
-});
-
-skyfeed.service('$auth', function () {
-
 });
