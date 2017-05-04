@@ -5,10 +5,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
 * {
   -webkit-user-select: none !important;
   cursor: default !important;
 }
+
 header {
   display: flex;
   flex-direction: row;
@@ -16,12 +18,15 @@ header {
   align-content: space-between;
   justify-content: space-between;
   border-bottom: 1px solid #6F6F6F;
+
   .sections {
     display: block;
   }
+
   .logins {
     display: block;
   }
+
   .icon {
     display: inline-block;
     box-sizing: border-box;
@@ -36,6 +41,7 @@ header {
     text-align: center;
     vertical-align: middle;
   }
+
   .btn:hover {
     color: $hover-color;
   }
@@ -45,6 +51,7 @@ header {
 }
 
 .login-page {
+
   .logins {
     display: flex;
     flex-direction: row;
@@ -56,9 +63,10 @@ header {
     .login {
       padding: 10px;
       border-radius: 15px;
+
       &:hover {
-          background: $hover-color;
-          transition: 500ms;
+        background: $hover-color;
+        transition: 500ms;
       }
 
       img {
@@ -66,6 +74,7 @@ header {
         width: 200px;
         height: 200px;
       }
+
       span {
         font-family: Verdana, sans-serif;
         display: block;
