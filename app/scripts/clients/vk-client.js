@@ -28,7 +28,7 @@ class VKClient extends Client {
             let originPhoto = origin.photo_100;
             let originName = origin.screen_name;
             let postText = item.text;
-            let postDate = new Date(item.date);
+            let postDate = new Date(item.date * 1000);
 
             return new VKPost({
                 id: item.post_id,

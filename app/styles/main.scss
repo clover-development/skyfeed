@@ -98,5 +98,36 @@ header {
     text-align: justify;
     border-radius: 3px;
     border: 1px solid lightblue;
+
+    .post-header {
+      display: flex;
+      flex-direction: row;
+      .photo-wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .photo {
+          width: 50px;
+        }
+      }
+      .info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        margin-left: 20px;
+        .source-name {
+          font-size: larger;
+          color: #727170;
+        }
+        .post-date {
+          font-size: small;
+          color: #a3a3a3;
+        }
+      }
+    }
+    .text {
+      margin-top: 15px;
+    }
   }
 }
