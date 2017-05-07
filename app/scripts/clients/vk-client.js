@@ -1,6 +1,6 @@
 const VKApi = require('node-vkapi');
 const randomColor = require('randomcolor');
-const { Client } = require('./client');
+const Client = require('./client');
 
 class VKClient extends Client {
     constructor(args) {
@@ -20,6 +20,14 @@ class VKClient extends Client {
         });
     }
 
+    getAttributes() {
+        return {
+            token: this.token,
+            color: this.color,
+            klass: this.constructor.name
+        }
+    }
+
     htmlColor() {
         return {
             'color': this.color
@@ -27,4 +35,4 @@ class VKClient extends Client {
     }
 }
 
-module.exports.VKClient = VKClient;
+module.exports = VKClient;

@@ -7,7 +7,7 @@ const path = require('path');
 const window = require('electron-window');
 const oauthLogin = require('./oauth-login');
 const loginService = require('./login-service-main');
-const { VKClient } = require('./clients/vk-client');
+const VKClient = require('./clients/vk-client');
 
 let mainWindow = undefined;
 

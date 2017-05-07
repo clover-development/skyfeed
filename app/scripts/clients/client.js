@@ -3,4 +3,4 @@ class Client {
     getPosts(page = 0, callback) { }
 }
 
-module.exports.Client = Client;
+module.exports = Client;

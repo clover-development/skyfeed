@@ -1,6 +1,7 @@
 const storage = require('electron-json-storage');
 const empty = require('is-empty');
 const state = require('./shared-state');
+const clientsClassMap = require('./clients/map');
 
 state.logins = [];
 
@@ -9,13 +10,15 @@ function loadLogins() {
         if (error) throw error;
 
         if (!empty(data)) {
-            state.logins = data;
+            let parsedLogins = data.map((attrs) => { return new clientsClassMap[attrs.klass](attrs); });
+            state.logins = parsedLogins;
         }
     })
 }
 
 function persistLogins() {
-    storage.set('logins', state.logins, function (error) {
+    let loginAttributes = state.logins.map((login) => { return login.getAttributes(); });
+    storage.set('logins', loginAttributes, function (error) {
         if (error) throw error;
     })
 }
@@ -25,8 +28,7 @@ function addLogin(login) {
     persistLogins();
 }
 
-// TODO: Implement serializing and de-serializing of logins
-// loadLogins();
+loadLogins();
 
 module.exports = {
     loadLogins: loadLogins,
