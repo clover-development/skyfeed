@@ -2692,6 +2692,11 @@
       "from": "query-string@>=4.1.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/query-string/-/query-string-4.3.4.tgz"
     },
+    "randomcolor": {
+      "version": "0.5.2",
+      "from": "randomcolor@latest",
+      "resolved": "https://registry.npmjs.org/randomcolor/-/randomcolor-0.5.2.tgz"
+    },
     "rc": {
       "version": "1.2.1",
       "from": "rc@>=1.1.2 <2.0.0",

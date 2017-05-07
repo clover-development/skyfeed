@@ -9,7 +9,7 @@ skyfeed.controller('FeedController', function ($scope, $state) {
         if (!logins.length) { return $state.go('app.login'); }
 
         logins.forEach(function (login) {
-            login.client.getPosts(0, posts => {
+            login.getPosts(0, posts => {
                 $scope.items = posts;
                 $scope.$apply();
                 console.log('Get Posts Result:\n', posts);
