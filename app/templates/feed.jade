@@ -5,4 +5,6 @@
             .info
                 .source-name {{ item.originName }}
                 .post-date {{ item.date | date: 'dd/MM/yyyy HH:mm:ss' }}
+            .like.icon.icon-star-empty
+            .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
         .text {{ item.text }}

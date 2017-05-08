@@ -1,8 +1,9 @@
 const Post = require('./post');
 
 class VKPost extends Post {
-    constructor(attrs) {
+    constructor(client, attrs) {
         super();
+        this.client = client;
         this.id = attrs.id;
         this.text = attrs.postText;
         this.date = attrs.postDate;
