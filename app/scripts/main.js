@@ -73,9 +73,11 @@ ipcMain.on('twitter-button-clicked', function () {
         authWindow.show();
         authWindow.webContents.on('did-finish-load', function () {
             if (authWindow.webContents.getURL() === 'https://api.twitter.com/oauth/authorize') {
-                let code = "require(./shared-state).url = document.querySelector('#oauth_pin code').textContent;";
-                webContents.executeJavaScript(code);
-                console.log(shared.url);
+                let code = "require('electron').ipcRenderer.send('hello', document.querySelector('#oauth_pin code').textContent);";
+                authWindow.webContents.executeJavaScript(code);
+                ipcMain.on('hello', (_, code) => {
+                    console.log(code);
+                });
             }
         });
     });
