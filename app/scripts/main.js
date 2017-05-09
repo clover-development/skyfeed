@@ -7,6 +7,9 @@ const path = require('path');
 const window = require('electron-window');
 const oauthLogin = require('./oauth-login');
 const loginService = require('./login-service-main');
+const buildUrl = require('build-url');
+const unirest = require('unirest');
+const queryString = require('query-string');
 const VKClient = require('./clients/vk-client');
 
 let mainWindow = undefined;
@@ -48,4 +51,29 @@ ipcMain.on('vk-button-clicked', function () {
     }, function (error) {
         console.log(error);
     });
+});
+
+ipcMain.on('twitter-button-clicked', function () {
+    let oauthParams = {
+        callback: 'oob',
+        consumer_key: 'cUSz8gcszC5MG7PV9BMfCcbws',
+        consumer_secret: 'ftfWCGqaSDDKKPzQ5pca2ln3p0BkqXALEBLoXyRzIwckkcggpL'
+    };
+    unirest.post('https://api.twitter.com/oauth/request_token').oauth(oauthParams).end((res) => {
+        let parsedResponse = queryString.parse(res.body);
+        let oauthToken = parsedResponse.oauth_token;
+
+        console.log(parsedResponse);
+
+        let authWindow = window.createWindow({ width: 800, height: 600, show: false, 'node-integration': false });
+        let url = buildUrl('https://api.twitter.com/oauth/authorize', { queryParams: { oauth_token: oauthToken } });
+        console.log('URL IS: ', url);
+        authWindow.showUrl(url);
+        authWindow.show();
+        authWindow.webContents.on('did-get-redirect-request', function (event, oldUrl, newUrl) {
+            let parsedUrl = queryString.parse(newUrl);
+            console.log(parsedUrl);
+        });
+    });
+
 });

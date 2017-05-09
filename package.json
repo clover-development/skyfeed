@@ -26,8 +26,12 @@
     "is-empty": "^1.2.0",
     "nedb": "^1.8.0",
     "node-vkapi": "^2.1.0",
+    "oauth": "^0.9.15",
+    "query-string": "^4.3.4",
     "randomcolor": "^0.5.2",
-    "require-dir": "^0.3.1"
+    "request": "^2.81.0",
+    "require-dir": "^0.3.1",
+    "unirest": "^0.5.1"
   },
   "main": "app/scripts/main.js",
   "scripts": {

@@ -5,4 +5,7 @@ skyfeed.controller('LoginCtrl', function ($scope) {
     $scope.loginVk = function () {
         ipcRenderer.send('vk-button-clicked', 'ping');
     };
+    $scope.loginTwitter = function () {
+        ipcRenderer.send('twitter-button-clicked', 'ping');
+    };
 });
