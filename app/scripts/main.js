@@ -11,6 +11,7 @@ const buildUrl = require('build-url');
 const unirest = require('unirest');
 const queryString = require('query-string');
 const VKClient = require('./clients/vk-client');
+const shared = require('./shared-state');
 
 let mainWindow = undefined;
 
@@ -70,9 +71,12 @@ ipcMain.on('twitter-button-clicked', function () {
         console.log('URL IS: ', url);
         authWindow.showUrl(url);
         authWindow.show();
-        authWindow.webContents.on('did-get-redirect-request', function (event, oldUrl, newUrl) {
-            let parsedUrl = queryString.parse(newUrl);
-            console.log(parsedUrl);
+        authWindow.webContents.on('did-finish-load', function () {
+            if (authWindow.webContents.getURL() === 'https://api.twitter.com/oauth/authorize') {
+                let code = "require(./shared-state).url = document.querySelector('#oauth_pin code').textContent;";
+                webContents.executeJavaScript(code);
+                console.log(shared.url);
+            }
         });
     });
 
