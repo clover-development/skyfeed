@@ -3272,6 +3272,11 @@
       "from": "tweetnacl@>=0.14.0 <0.15.0",
       "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz"
     },
+    "twitter": {
+      "version": "1.7.0",
+      "from": "twitter@latest",
+      "resolved": "https://registry.npmjs.org/twitter/-/twitter-1.7.0.tgz"
+    },
     "type-check": {
       "version": "0.3.2",
       "from": "type-check@>=0.3.2 <0.4.0",
