@@ -21,7 +21,17 @@ skyfeed.controller('FeedController', function ($scope, $state) {
     };
 
     $scope.loadMoreItems = function () {
-        console.log('YO From infinite scroll');
+        let logins = loginService.getLogins();
+        logins.forEach(function (login) {
+            $scope.fetching = true;
+            $scope.$apply();
+            login.getPosts(0, posts => {
+                $scope.items.push.apply($scope.items, posts);
+                $scope.fetching = false;
+                $scope.$apply();
+                console.log('Push new posts:\n', posts);
+            });
+        });
     };
 
     $scope.load();
