@@ -11,6 +11,7 @@ const buildUrl = require('build-url');
 const unirest = require('unirest');
 const queryString = require('query-string');
 const VKClient = require('./clients/vk-client');
+const TwitterClient = require('./clients/twitter-client');
 const shared = require('./shared-state');
 
 let mainWindow = undefined;
@@ -57,8 +58,8 @@ ipcMain.on('vk-button-clicked', function () {
 ipcMain.on('twitter-button-clicked', function () {
     let oauthParams = {
         callback: 'oob',
-        consumer_key: 'cUSz8gcszC5MG7PV9BMfCcbws',
-        consumer_secret: 'ftfWCGqaSDDKKPzQ5pca2ln3p0BkqXALEBLoXyRzIwckkcggpL'
+        consumer_key: 'H0qR6Rf3ijBilTF25Js8RnnLB',
+        consumer_secret: 'b6sNgLUvVZMomLNRsFmLIbNXIJ9qM8t2Hr13Tf6PSdP7IwHUaa'
     };
     unirest.post('https://api.twitter.com/oauth/request_token').oauth(oauthParams).end((res) => {
         let parsedResponse = queryString.parse(res.body);
@@ -75,11 +76,12 @@ ipcMain.on('twitter-button-clicked', function () {
                     unirest.post('https://api.twitter.com/oauth/request_token').oauth(oauthParams).query({oauth_verifier: code}).end((res) => {
                         let parsedResponse = queryString.parse(res.body);
                         authWindow.close();
-                        console.log(parsedResponse);
+                        let client = new TwitterClient({token: parsedResponse.oauth_token, tokenSecret: parsedResponse.oauth_token_secret});
+                        loginService.addLogin(client);
+                        mainWindow.webContents.send('login-success');
                     })
                 });
             }
         });
     });
-
 });

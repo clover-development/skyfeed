@@ -6,8 +6,8 @@ skyfeed.controller('FeedController', function ($scope, $state) {
 
     $scope.load = function () {
         let logins = loginService.getLogins();
+        console.log(logins);
         if (!logins.length) { return $state.go('app.login'); }
-
         logins.forEach(function (login) {
             login.getPosts(0, posts => {
                 $scope.items = posts;

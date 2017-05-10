@@ -7,7 +7,7 @@ skyfeed.controller('ApplicationController', function ($scope) {
         $scope.logins = loginService.getLogins();
     };
 
-    ipcRenderer.on('login-success', function () { $scope.updateLogins(); });
+    ipcRenderer.on('login-success', function () { console.log('login-success'); $scope.updateLogins(); });
 
     $scope.updateLogins();
 });

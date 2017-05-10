@@ -5,8 +5,18 @@ const VKPost = require('../posts/vk-post');
 class VKClient extends Client {
     constructor(args) {
         super(args);
+        if (!args.token) {
+            throw new Error('Token is required');
+        }
         this.apiClient = new VKApi({ token : args.token });
+        this.token = args.token;
         this.type = 'vk';
+    }
+
+    getAttributes() {
+      let result = this.getCommonAttributes();
+      result.token = this.token;
+      return result;
     }
 
     getPosts(page = 0, callback) {
