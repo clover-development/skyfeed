@@ -73,7 +73,9 @@ ipcMain.on('twitter-button-clicked', function () {
                 let code = "require('electron').ipcRenderer.send('twitter-auth-pin', document.querySelector('#oauth_pin code').textContent);";
                 authWindow.webContents.executeJavaScript(code);
                 ipcMain.on('twitter-auth-pin', (_, code) => {
-                    unirest.post('https://api.twitter.com/oauth/request_token').oauth(oauthParams).query({oauth_verifier: code}).end((res) => {
+                    oauthParams.token = oauthToken;
+                    oauthParams.verifier = code;
+                    unirest.post('https://api.twitter.com/oauth/access_token').oauth(oauthParams).end((res) => {
                         let parsedResponse = queryString.parse(res.body);
                         authWindow.close();
                         let client = new TwitterClient({token: parsedResponse.oauth_token, tokenSecret: parsedResponse.oauth_token_secret});
