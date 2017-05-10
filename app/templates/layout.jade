@@ -1,7 +1,7 @@
 header
     .sections
-        a.btn.icon.icon-feed(href='#')
-        a.btn.icon.icon-envelop(href='#')
+        a.btn.icon.icon-feed(ui-sref='app.feed')
+        a.btn.icon.icon-envelop(ui-sref='app.messages')
     .logins
         a.btn.icon(ng-repeat='login in logins' ng-style='login.htmlColor()') {{ login.type }}
         a.btn.icon.icon-plus(ui-sref='app.login')
