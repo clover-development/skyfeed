@@ -63,12 +63,8 @@ ipcMain.on('twitter-button-clicked', function () {
     unirest.post('https://api.twitter.com/oauth/request_token').oauth(oauthParams).end((res) => {
         let parsedResponse = queryString.parse(res.body);
         let oauthToken = parsedResponse.oauth_token;
-
-        console.log(parsedResponse);
-
         let authWindow = window.createWindow({ width: 800, height: 600, show: false, 'node-integration': false });
         let url = buildUrl('https://api.twitter.com/oauth/authorize', { queryParams: { oauth_token: oauthToken } });
-        console.log('URL IS: ', url);
         authWindow.showUrl(url);
         authWindow.show();
         authWindow.webContents.on('did-finish-load', function () {
