@@ -1,4 +1,4 @@
-.posts
+.posts(infinite-scroll='loadMoreItems()' infinite-scroll-distance='500' infinite-scroll-disabled='fetching')
     .post(ng-repeat="item in items")
         .post-header
             img.photo(src='{{ item.originPhoto }}')
