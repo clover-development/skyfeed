@@ -20,7 +20,12 @@ class VKClient extends Client {
     }
 
     getPosts(page = 0, callback) {
-        this.apiClient.call('newsfeed.get', {filters: 'post'}).then(res => {
+        let params = {
+            filters: 'post',
+            start_from: this.nextFromPosts || ''
+        };
+        this.apiClient.call('newsfeed.get', params).then(res => {
+            this.nextFromPosts = res.next_from;
             let posts = this.parsePosts(res.items, res.groups, res.profiles);
             callback(posts);
         });

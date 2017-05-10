@@ -37,6 +37,10 @@ skyfeed.config([
             url: '/feed',
             controller: 'FeedController',
             templateUrl: 'templates/feed.jade'
+        }).state('app.conversations', {
+            url: '/conversations',
+            controller: 'ConversationsController',
+            templateUrl: 'templates/conversations.jade'
         }).state('app.login', {
             url: '/login',
             controller: 'LoginCtrl',
