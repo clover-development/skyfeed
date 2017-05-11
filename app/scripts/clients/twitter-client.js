@@ -1,14 +1,11 @@
 const Twitter = require('twitter');
 const Client = require('./client');
+const TwitterPost = require('../posts/twitter-post');
 
 class TwitterClient extends Client {
   constructor(args) {
     super(args);
-
-    if (!args.token) {
-        throw new Error('Token is required');
-    }
-
+    if (!args.token) throw new Error('Token is required');
     this.token = args.token;
     this.tokenSecret = args.tokenSecret;
 
@@ -30,14 +27,30 @@ class TwitterClient extends Client {
   }
 
   getPosts(page = 0, callback) {
-    let params = {screen_name: 'nodejs'};
-    this.apiClient.get('statuses/user_timeline', params, function(error, tweets, response) {
+    let _this = this;
+    this.apiClient.get('statuses/user_timeline', function(error, tweets, response) {
       if (!error) {
-        console.log(tweets);
-        callback(tweets);
+        let posts = _this.parsePosts(tweets);
+        callback(posts);
       }
-      console.log(error, tweets);
     });
+  }
+
+  parsePosts(items) {
+      return items.map((item) => {
+        let postText = item.text;
+        let postDate = new Date(item.created_at.replace(/-/g,"/"));
+        let originPhoto = item.user.profile_image_url;
+        let originName = item.user.name;
+
+        return new TwitterPost(this, {
+            id: item.id,
+            originPhoto: originPhoto,
+            originName: originName,
+            postText: postText,
+            postDate: postDate
+        });
+      });
   }
 }
 
