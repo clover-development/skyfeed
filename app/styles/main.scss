@@ -28,9 +28,31 @@ header {
 
   .logins {
     display: block;
+    .login-icon {
+      position: relative;
+      &:hover {
+        .logout-icon {
+          display: block;
+        }
+      }
+      .logout-icon {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 12px;
+        color: red;
+        background: white;
+        border-radius: 10px;
+        padding: 3px;
+        vertical-align: middle;
+        text-align: center;
+        &:hover { background: black; }
+      }
+    }
   }
 
-  .icon {
+  .btn {
     display: inline-block;
     box-sizing: border-box;
     margin: 5px;

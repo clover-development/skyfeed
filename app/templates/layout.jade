@@ -3,6 +3,7 @@ header
         a.btn.icon.icon-feed(ui-sref='app.feed')
         a.btn.icon.icon-envelop(ui-sref='app.conversations')
     .logins
-        a.btn.icon(ng-repeat='login in logins' ng-style='login.htmlColor()') {{ login.type }}
+        a.btn.icon.login-icon(ng-repeat='login in logins' ng-style='login.htmlColor()') {{ login.type }}
+            .icon.icon-cross.logout-icon
         a.btn.icon.icon-plus(ui-sref='app.login')
 div(ui-view="")
