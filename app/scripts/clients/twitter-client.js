@@ -5,7 +5,7 @@ const TwitterPost = require('../posts/twitter-post');
 class TwitterClient extends Client {
   constructor(args) {
     super(args);
-    if (!args.token) throw new Error('Token is required');
+    if (!args.token || !args.tokenSecret) throw new Error('Token is required');
     this.token = args.token;
     this.tokenSecret = args.tokenSecret;
 
