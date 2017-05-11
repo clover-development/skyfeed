@@ -35,8 +35,8 @@ class TwitterClient extends Client {
     if (this.lastID) { params.max_id = this.lastID - 1; }
 
     this.apiClient.get('statuses/home_timeline', params, function(error, tweets, response) {
-      if (error) { console.log('Twitter Posts Error:\n', error); return }
-      if (_this.isLastPage) { return }
+      if (error) { console.log('Twitter Posts Error:\n', error); callback([]); return }
+      if (_this.isLastPage) { callback([]); return }
 
       let count = tweets.length;
       if (count < maxCount) { _this.isLastPage = true; }

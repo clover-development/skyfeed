@@ -3,17 +3,21 @@ const skyfeed = require('../angular-skyfeed');
 
 skyfeed.controller('FeedController', function ($scope, $state) {
     $scope.items = [];
-    $scope.fetching = false;
+    $scope.fetchCount = 0;
 
     $scope.load = function () {
+        if ($scope.fetchCount > 0) { return }
+
         let logins = loginService.getLogins();
         if (!logins.length) { return $state.go('app.login'); }
+
         logins.forEach(function (login) {
-            $scope.fetching = true;
+            $scope.fetchCount++;
             login.getPosts(0, posts => {
                 $scope.items.push.apply($scope.items, posts);
-                $scope.fetching = false;
-                $scope.$apply();
+
+                $scope.fetchCount--;
+                if ($scope.fetchCount === 0) { $scope.$apply(); }
             });
         });
     };
