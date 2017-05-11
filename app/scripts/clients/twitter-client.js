@@ -28,11 +28,22 @@ class TwitterClient extends Client {
 
   getPosts(page = 0, callback) {
     let _this = this;
-    this.apiClient.get('statuses/user_timeline', function(error, tweets, response) {
-      if (!error) {
-        let posts = _this.parsePosts(tweets);
-        callback(posts);
-      }
+
+    let maxCount = 100;
+    let params = { count: maxCount };
+    if (this.lastID) { params.max_id = this.lastID - 1; }
+
+    this.apiClient.get('statuses/home_timeline', params, function(error, tweets, response) {
+      if (error) { console.log('Twitter Posts Error:\n', error); return }
+      if (_this.isLastPage) { return }
+
+      let count = tweets.length;
+      if (count < maxCount) { _this.isLastPage = true; }
+
+      let posts = _this.parsePosts(tweets);
+      _this.lastID = tweets[tweets.length - 1].id;
+
+      callback(posts);
     });
   }
 
