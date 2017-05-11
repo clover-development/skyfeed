@@ -10,6 +10,7 @@ class VKClient extends Client {
         }
         this.apiClient = new VKApi({ token : args.token });
         this.token = args.token;
+        this.id = this.token;
         this.type = 'vk';
     }
 

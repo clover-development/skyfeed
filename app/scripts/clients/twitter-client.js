@@ -8,6 +8,7 @@ class TwitterClient extends Client {
     if (!args.token || !args.tokenSecret) throw new Error('Token is required');
     this.token = args.token;
     this.tokenSecret = args.tokenSecret;
+    this.id = this.token;
 
     this.apiClient = new Twitter({
       consumer_key: 'H0qR6Rf3ijBilTF25Js8RnnLB',

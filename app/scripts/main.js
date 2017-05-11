@@ -87,3 +87,8 @@ ipcMain.on('twitter-button-clicked', function () {
         });
     });
 });
+
+ipcMain.on('logout', (_, loginID) => {
+    loginService.removeLogin(loginID);
+    mainWindow.webContents.send('logout-success');
+});

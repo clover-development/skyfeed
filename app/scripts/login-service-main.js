@@ -28,10 +28,18 @@ function addLogin(login) {
     persistLogins();
 }
 
+function removeLogin(loginID) {
+    let login = state.logins.find((login) => { return login.id == loginID });
+    let index = state.logins.indexOf(login);
+    state.logins.splice(index, 1);
+    persistLogins();
+}
+
 loadLogins();
 
 module.exports = {
     loadLogins: loadLogins,
     persistLogins: persistLogins,
-    addLogin: addLogin
+    addLogin: addLogin,
+    removeLogin: removeLogin
 };

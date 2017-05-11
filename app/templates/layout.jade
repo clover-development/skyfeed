@@ -4,6 +4,6 @@ header
         a.btn.icon.icon-envelop(ui-sref='app.conversations')
     .logins
         a.btn.icon.login-icon(ng-repeat='login in logins' ng-style='login.htmlColor()') {{ login.type }}
-            .icon.icon-cross.logout-icon
+            .icon.icon-cross.logout-icon(ng-click='logout(login)')
         a.btn.icon.icon-plus(ui-sref='app.login')
 div(ui-view="")
