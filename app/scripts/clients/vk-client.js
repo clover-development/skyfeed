@@ -53,12 +53,12 @@ class VKClient extends Client {
 
     parsePosts(items, groups, profiles) {
         return items.map((item) => {
-            let source_id = parseInt(item.source_id);
+            let sourceID = parseInt(item.source_id);
             let origin;
-            if (source_id > 0) {
-                origin = profiles.find((p) => { return parseInt(p.id) === source_id });
+            if (sourceID > 0) {
+                origin = profiles.find((p) => { return parseInt(p.id) === sourceID });
             } else {
-                origin = groups.find((g) => { return parseInt(g.id) === -source_id });
+                origin = groups.find((g) => { return parseInt(g.id) === -sourceID });
             }
             let originPhoto = origin.photo_100;
             let originName = origin.screen_name;
@@ -67,10 +67,13 @@ class VKClient extends Client {
 
             return new VKPost(this, {
                 id: item.post_id,
+                sourceID: sourceID,
                 originPhoto: originPhoto,
                 originName: originName,
                 postText: postText,
-                postDate: postDate
+                postDate: postDate,
+                liked: parseInt(item.likes.user_likes) === 1,
+                likesCount: parseInt(item.likes.count)
             });
         }).filter((item) => {
             return !!item.text;

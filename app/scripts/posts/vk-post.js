@@ -1,14 +1,51 @@
 const Post = require('./post');
+const unirest = require('unirest');
 
 class VKPost extends Post {
-    constructor(client, attrs) {
-        super();
-        this.client = client;
-        this.id = attrs.id;
-        this.text = attrs.postText;
-        this.date = attrs.postDate;
-        this.originPhoto = attrs.originPhoto;
-        this.originName = attrs.originName;
+
+    constructor(client, args) {
+        super(client, args);
+        this.sourceID = args.sourceID;
+        this.isBeingLiked = false;
+    }
+
+    switchLike(callback) {
+        if (this.isBeingLiked) { return }
+
+        let params = { type: 'post', item_id: this.id, owner_id: this.sourceID };
+
+        this.isBeingLiked = true;
+        if (this.liked) {
+            this._deleteLike(params, callback);
+        } else {
+            this._addLike(params, callback);
+        }
+    }
+
+    _addLike(params, callback) {
+        this.apiClient.call('likes.add', params).then((res) => {
+            this.liked = true;
+            this.likesCount = res.likes;
+            this.isBeingLiked = false;
+            callback(null, this);
+        }).catch((error) => {
+            console.log('Add Like Error: ', error);
+            this.isBeingLiked = false;
+            callback(error, this);
+        });
+    }
+
+    _deleteLike(params, callback) {
+        this.apiClient.call('likes.delete', params).then((res) => {
+            this.liked = false;
+            this.likesCount = res.likes;
+            this.isBeingLiked = false;
+            callback(null, this);
+        }).catch((error) => {
+            console.log('Remove Like Error: ', error);
+            this.isBeingLiked = false;
+            callback(error, this);
+        });
     }
 }
 
