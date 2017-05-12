@@ -70,21 +70,20 @@ ipcMain.on('twitter-button-clicked', function () {
             authWindow.showUrl(url);
             authWindow.show();
             authWindow.webContents.on('did-finish-load', function () {
-                if (authWindow.webContents.getURL() === 'https://api.twitter.com/oauth/authorize') {
-                    let code = "require('electron').ipcRenderer.send('twitter-auth-pin', document.querySelector('#oauth_pin code').textContent);";
-                    authWindow.webContents.executeJavaScript(code);
-                    ipcMain.on('twitter-auth-pin', (_, code) => {
-                        oauthParams.token = oauthToken;
-                        oauthParams.verifier = code;
-                        unirest.post('https://api.twitter.com/oauth/access_token').oauth(oauthParams).end((res) => {
-                            let parsedResponse = queryString.parse(res.body);
-                            authWindow.close();
-                            let client = new TwitterClient({token: parsedResponse.oauth_token, tokenSecret: parsedResponse.oauth_token_secret});
-                            loginService.addLogin(client);
-                            mainWindow.webContents.send('login-success');
-                        })
-                    });
-                }
+                if (authWindow.webContents.getURL() !== 'https://api.twitter.com/oauth/authorize') { return }
+                let code = "require('electron').ipcRenderer.send('twitter-auth-pin', document.querySelector('#oauth_pin code').textContent);";
+                authWindow.webContents.executeJavaScript(code);
+                ipcMain.on('twitter-auth-pin', (_, code) => {
+                    oauthParams.token = oauthToken;
+                    oauthParams.verifier = code;
+                    unirest.post('https://api.twitter.com/oauth/access_token').oauth(oauthParams).end((res) => {
+                        let parsedResponse = queryString.parse(res.body);
+                        authWindow.close();
+                        let client = new TwitterClient({token: parsedResponse.oauth_token, tokenSecret: parsedResponse.oauth_token_secret});
+                        loginService.addLogin(client);
+                        mainWindow.webContents.send('login-success');
+                    })
+                });
             });
         });
     });
