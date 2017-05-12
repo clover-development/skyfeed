@@ -1,6 +1,7 @@
 const Twitter = require('twitter');
 const Client = require('./client');
 const TwitterPost = require('../posts/twitter-post');
+const TwitterConversation = require('../conversations/twitter-conversation');
 
 class TwitterClient extends Client {
   constructor(args) {
