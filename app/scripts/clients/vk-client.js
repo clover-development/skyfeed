@@ -81,7 +81,7 @@ class VKClient extends Client {
     }
 
     getDialogs(callback) {
-        this.apiClient.call('messages.getDialogs', {count: 100, offset: 0, preview_length: 100}).then(res => {
+        this.apiClient.call('messages.getDialogs', {count: 50, offset: 0, preview_length: 100}).then(res => {
             this.parseDialogs(res.items, (parsedDialogs) => {
                 callback(parsedDialogs);
             });
@@ -115,22 +115,24 @@ class VKClient extends Client {
 
     parseMessages(items, callback) {
         let result = items.map((item) => {
-            let conversationText = item.body;
+            let date = new Date(item.date*1000);
             let conversationTitle = item.title;
 
             return {
                 id: item.id,
                 userID: item.user_id,
                 text: item.body,
+                isRead: item.read_state,
+                isMyMessage: item.out,
+                date: date
             }
         });
         callback(result);
     }
 
     getMessages(userID, callback) {
-        this.apiClient.call('messages.getHistory', { count: 100, user_id: userID }).then(res => {
+        this.apiClient.call('messages.getHistory', { count: 50, user_id: userID }).then(res => {
             this.parseMessages(res.items, (parsedDialogs) => {
-                console.log(parsedDialogs);
                 callback(parsedDialogs);
             });
         });

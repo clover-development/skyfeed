@@ -1,1 +1,5 @@
-.message(ng-repeat="message in messages") {{ message.text }}
+table
+  tr(ng-repeat="message in messages")
+    td
+      .wrap(ng-class='message.isMyMessage ? "right" : "left"') {{ message.text }}
+        a.time {{ message.date | date: 'HH:mm' }}

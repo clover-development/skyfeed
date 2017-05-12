@@ -241,3 +241,34 @@ header {
     }
   }
 }
+
+table {
+  width: 100%;
+  background: #f2f5f7;
+
+  td {
+    padding: 9px 12px;
+
+    .wrap {
+      padding: 7px;
+      word-wrap: break-word;
+      border: 1px solid #d1dae3;
+      border-radius: 4px;
+      background: #ffffff;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .right {
+      float: right!important;
+      background: #dae3ed;
+    }
+  }
+
+  a.time {
+    color: #aaaaaa;
+    float: right;
+    font-size: 10px;
+    margin: 5px 0 2px 6px;
+  }
+}
