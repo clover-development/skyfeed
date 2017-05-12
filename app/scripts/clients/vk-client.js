@@ -103,12 +103,36 @@ class VKClient extends Client {
 
                 return new VKConversation(this, {
                     id: item.message.id,
+                    userID: item.message.user_id,
                     conversationTitle: conversationTitle,
                     conversationText: conversationText,
                     conversationPhoto: conversationPhoto || (user && user.conversationPhoto)
                 });
             });
             callback(result);
+        });
+    }
+
+    parseMessages(items, callback) {
+        let result = items.map((item) => {
+            let conversationText = item.body;
+            let conversationTitle = item.title;
+
+            return {
+                id: item.id,
+                userID: item.user_id,
+                text: item.body,
+            }
+        });
+        callback(result);
+    }
+
+    getMessages(userID, callback) {
+        this.apiClient.call('messages.getHistory', { count: 100, user_id: userID }).then(res => {
+            this.parseMessages(res.items, (parsedDialogs) => {
+                console.log(parsedDialogs);
+                callback(parsedDialogs);
+            });
         });
     }
 }

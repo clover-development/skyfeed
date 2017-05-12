@@ -2,12 +2,13 @@ const Conversation = require('./conversation');
 
 class VKConversation extends Conversation {
     constructor(client, attrs) {
-      super();
-      this.client = client;
-      this.id = attrs.id;
-      this.conversationTitle = attrs.conversationTitle;
-      this.conversationText = attrs.conversationText;
-      this.conversationPhoto = attrs.conversationPhoto;
+        super();
+        this.client = client;
+        this.id = attrs.id;
+        this.userID = attrs.userID;
+        this.conversationTitle = attrs.conversationTitle;
+        this.conversationText = attrs.conversationText;
+        this.conversationPhoto = attrs.conversationPhoto;
     }
 }
 
