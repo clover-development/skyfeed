@@ -81,7 +81,7 @@ class VKClient extends Client {
     }
 
     getDialogs(callback) {
-        this.apiClient.call('messages.getDialogs', {count: 100, offset: 0}).then(res => {
+        this.apiClient.call('messages.getDialogs', {count: 100, offset: 0, preview_length: 100}).then(res => {
             this.parseDialogs(res.items, (parsedDialogs) => {
                 callback(parsedDialogs);
             });
@@ -89,23 +89,25 @@ class VKClient extends Client {
     }
 
     parseDialogs(items, callback) {
-        let userIds = items.map((item) => { return item.message.user_id })
+        let userIds = items.map((item) => { return item.message.user_id });
         this.getUsers(userIds, (users) => {
             let result = items.map((item) => {
-                let user = users.find((user) => { return user.id === item.message.user_id })
+                let user = users.find((user) => { return user.id === item.message.user_id });
                 let conversationText = item.message.body;
                 let conversationPhoto = item.message.photo_100;
                 let conversationTitle = item.message.title;
 
-                if (conversationTitle === ' ... ') conversationTitle = user.fullName
+                if (conversationTitle === ' ... ' || conversationTitle === '') {
+                    conversationTitle = (user && user.fullName);
+                }
 
                 return new VKConversation(this, {
                     id: item.message.id,
                     conversationTitle: conversationTitle,
                     conversationText: conversationText,
-                    conversationPhoto: conversationPhoto || user.conversationPhoto
+                    conversationPhoto: conversationPhoto || (user && user.conversationPhoto)
                 });
-            })
+            });
             callback(result);
         });
     }
