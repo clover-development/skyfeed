@@ -1,10 +1,10 @@
-const {app, ipcMain} = require('electron');
+const {app, ipcMain, BrowserWindow} = require('electron');
 // Require and activate debug tools
 require('electron-debug')({showDevTools: false});
 
 // Dependencies
 const path = require('path');
-const window = require('electron-window');
+const url = require('url');
 const oauthLogin = require('./oauth-login');
 const loginService = require('./login-service-main');
 const VKClient = require('./clients/vk-client');
@@ -17,10 +17,12 @@ console.log('Application settings path is: ', app.getPath('userData'));
 
 function createWindow () {
   const iconPath = path.join(__dirname, '../images/icon.png');
-  mainWindow = window.createWindow({ width: 1800, height: 1000, show: true, icon: iconPath });
+  mainWindow = new BrowserWindow({ width: 1800, height: 1000, icon: iconPath });
   const indexPath = path.join(__dirname, '../index.jade');
-  mainWindow.showUrl(indexPath);
+  const indexUrl = url.format({ protocol: 'file', pathname: indexPath, slashes: true});
+  mainWindow.loadURL(indexUrl);
   mainWindow.openDevTools();
+  mainWindow.webContents.on('did-finish-load', () => { mainWindow.show() });
 }
 
 app.on('ready', createWindow);
