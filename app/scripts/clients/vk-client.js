@@ -51,7 +51,9 @@ class VKClient extends Client {
                 originPhoto: originPhoto,
                 originName: originName,
                 postText: postText,
-                postDate: postDate
+                postDate: postDate,
+                liked: parseInt(item.likes.user_likes) === 1,
+                likesCount: parseInt(item.likes.count)
             });
         }).filter((item) => {
             return !!item.text;

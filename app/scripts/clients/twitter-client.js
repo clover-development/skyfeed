@@ -60,7 +60,9 @@ class TwitterClient extends Client {
             originPhoto: originPhoto,
             originName: originName,
             postText: postText,
-            postDate: postDate
+            postDate: postDate,
+            liked: item.favorited,
+            likesCount: item.favorite_count
         });
       });
   }
