@@ -56,7 +56,7 @@ class TwitterClient extends Client {
         let originName = item.user.name;
 
         return new TwitterPost(this, {
-            id: item.id,
+            id: item.id_str,
             originPhoto: originPhoto,
             originName: originName,
             postText: postText,
