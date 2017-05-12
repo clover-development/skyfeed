@@ -6,7 +6,7 @@
                 .source-name {{ item.originName }}
                 .post-date {{ item.date | date: 'dd/MM/yyyy HH:mm:ss' }}
             .like-block
-                .like.icon(ng-class='item.liked ? "icon-star-full" : "icon-star-empty"')
+                .like.icon(ng-class='item.liked ? "icon-star-full" : "icon-star-empty"' ng-click='switchLike(item)')
                 .like-count {{ item.likesCount }}
             .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
         .text {{ item.text }}

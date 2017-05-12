@@ -1,6 +1,7 @@
 class Post {
     constructor(client, attrs) {
         this.client = client;
+        this.apiClient = client.apiClient;
         this.id = attrs.id;
         this.text = attrs.postText;
         this.date = attrs.postDate;

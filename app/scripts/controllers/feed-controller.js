@@ -22,5 +22,11 @@ skyfeed.controller('FeedController', function ($scope, $state) {
         });
     };
 
+    $scope.switchLike = function(item) {
+        item.switchLike((error, item) => {
+            if (!error) { $scope.$apply(); }
+        });
+    };
+
     $scope.load();
 });
