@@ -11,7 +11,7 @@ const VKClient = require('./clients/vk-client');
 const TwitterClient = require('./clients/twitter-client');
 const shared = require('./shared-state');
 
-let mainWindow = undefined;
+let mainWindow = null;
 
 console.log('Application settings path is: ', app.getPath('userData'));
 
@@ -23,6 +23,7 @@ function createWindow () {
     mainWindow.loadURL(indexUrl);
     mainWindow.openDevTools();
     mainWindow.webContents.on('did-finish-load', () => { mainWindow.show() });
+    mainWindow.on('closed', () => { mainWindow = null });
 }
 
 app.on('ready', createWindow);
