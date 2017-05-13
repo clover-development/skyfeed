@@ -22,7 +22,7 @@ class VKClient extends Client {
     getUsers(userIDs, callback) {
         let params = {
             user_ids: userIDs.join(', '),
-            fields: 'photo_100'
+            fields: 'photo_50'
         };
 
         this.apiClient.call('users.get', params).then(res => {
@@ -30,7 +30,7 @@ class VKClient extends Client {
                 return {
                   id: item.id,
                   fullName: `${item.first_name} ${item.last_name}`,
-                  conversationPhoto: item.photo_100
+                  conversationPhoto: item.photo_50
                 }
             });
             callback(result);
@@ -92,7 +92,7 @@ class VKClient extends Client {
             let result = items.map((item) => {
                 let user = users.find((user) => { return user.id === item.message.user_id });
                 let conversationText = item.message.body;
-                let conversationPhoto = item.message.photo_100;
+                let conversationPhoto = item.message.photo_50;
                 let conversationTitle = item.message.title;
                 let isConversationRead = item.message.read_state
 
