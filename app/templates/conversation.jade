@@ -3,3 +3,4 @@ table
     td
       .wrap(ng-class='message.isMyMessage ? "right" : "left"') {{ message.text }}
         a.time {{ message.date | date: 'HH:mm' }}
+        img(ng-repeat='photo in message.photos' ng-src='{{ photo.smallURL }}')
