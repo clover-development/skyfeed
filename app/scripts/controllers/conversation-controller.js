@@ -2,9 +2,9 @@ const loginService = require('../login-service-renderer');
 const skyfeed = require('../angular-skyfeed');
 
 skyfeed.controller('ConversationController', function ($scope, $stateParams) {
-    $scope.client = $stateParams.client;
+    $scope.conversation = $stateParams.conversation;
 
-    $scope.client.getMessages($stateParams.userID, (messages) => {
+    $scope.conversation.getMessages((messages) => {
         $scope.messages = messages;
         $scope.$apply();
     })

@@ -45,10 +45,7 @@ skyfeed.config([
             url: '/conversation',
             controller: 'ConversationController',
             templateUrl: 'templates/conversation.jade',
-            params: {
-                userID: null,
-                client: null
-            }
+            params: { conversation: null }
         }).state('app.login', {
             url: '/login',
             controller: 'LoginCtrl',

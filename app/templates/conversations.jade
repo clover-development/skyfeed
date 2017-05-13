@@ -1,5 +1,5 @@
 .conversations
-    .conversation(ng-repeat="item in items" ui-sref='app.conversation({userID: item.userID, client: item.client})')
+    .conversation(ng-repeat="item in items" ui-sref='app.conversation({conversation: item})')
         img.avatar(src='{{ item.conversationPhoto }}')
         .info
             .user-name {{ item.conversationTitle }}

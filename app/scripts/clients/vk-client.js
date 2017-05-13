@@ -104,37 +104,13 @@ class VKClient extends Client {
                 return new VKConversation(this, {
                     id: item.message.id,
                     userID: item.message.user_id,
+                    chatID: item.message.chat_id,
                     conversationTitle: conversationTitle,
                     conversationText: conversationText,
                     conversationPhoto: conversationPhoto || (user && user.conversationPhoto)
                 });
             });
             callback(result);
-        });
-    }
-
-    parseMessages(items, callback) {
-        let result = items.map((item) => {
-            let date = new Date(item.date*1000);
-            let conversationTitle = item.title;
-
-            return {
-                id: item.id,
-                userID: item.user_id,
-                text: item.body,
-                isRead: item.read_state,
-                isMyMessage: item.out,
-                date: date
-            }
-        });
-        callback(result);
-    }
-
-    getMessages(userID, callback) {
-        this.apiClient.call('messages.getHistory', { count: 50, user_id: userID }).then(res => {
-            this.parseMessages(res.items, (parsedDialogs) => {
-                callback(parsedDialogs);
-            });
         });
     }
 }
