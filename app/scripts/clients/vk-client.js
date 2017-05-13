@@ -13,30 +13,28 @@ class VKClient extends Client {
         this.type = 'vk';
     }
 
-    getUsers(userIds, callback) {
+    getAttributes() {
+        let result = this.getCommonAttributes();
+        result.token = this.token;
+        return result;
+    }
+
+    getUsers(userIDs, callback) {
         let params = {
-            user_ids: userIds.join(', '),
+            user_ids: userIDs.join(', '),
             fields: 'photo_100'
         };
 
         this.apiClient.call('users.get', params).then(res => {
             let result = res.map((item) => {
-                let fullName = `${item.first_name} ${item.last_name}`;
-                let conversationPhoto = item.photo_100;
                 return {
                   id: item.id,
-                  fullName: fullName,
-                  conversationPhoto: conversationPhoto
+                  fullName: `${item.first_name} ${item.last_name}`,
+                  conversationPhoto: item.photo_100
                 }
             });
             callback(result);
         });
-    }
-
-    getAttributes() {
-        let result = this.getCommonAttributes();
-        result.token = this.token;
-        return result;
     }
 
     getPosts(page = 0, callback) {
