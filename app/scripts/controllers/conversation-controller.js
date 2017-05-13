@@ -8,10 +8,14 @@ skyfeed.controller('ConversationController', function ($scope, $stateParams) {
     $scope.conversation.getMessages((messages) => {
         $scope.messages = messages;
         $scope.$apply();
-    })
+    });
 
     $scope.sendMessage = function(messageBody){
-        $scope.conversation.sendMessage(messageBody);
+        $scope.conversation.sendMessage(messageBody, (error, message) => {
+            $scope.messages.unshift(message);
+            $scope.$apply();
+        });
+
         $scope.messageBody = "";
 	  };
 });

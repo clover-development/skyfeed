@@ -5,7 +5,6 @@ class TwitterPost extends Post {
     constructor(client, args) {
         super(client, args);
         this.isBeingLiked = false;
-        console.log(this);
     }
 
     switchLike(callback) {

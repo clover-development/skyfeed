@@ -37,7 +37,8 @@ class VKConversation extends Conversation {
         });
     }
 
-    sendMessage(message) {
+    sendMessage(message, callback) {
+        let self = this;
         let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
 
         let params = {
@@ -46,9 +47,14 @@ class VKConversation extends Conversation {
         };
 
         this.apiClient.call('messages.send', params).then(res => {
-            self.parseMessages(res.items, (parsedDialogs) => {
-                callback(parsedDialogs);
-            });
+            callback(null, {
+                id: res,
+                userID: peerID,
+                text: message,
+                isMyMessage: 1,
+                date: new Date(),
+                photos: []
+            })
         });
     }
 }
