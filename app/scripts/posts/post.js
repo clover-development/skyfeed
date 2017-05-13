@@ -9,6 +9,8 @@ class Post {
         this.originName = attrs.originName;
         this.liked = attrs.liked;
         this.likesCount = attrs.likesCount;
+        this.photos = attrs.photos;
+        this.copyHistory = attrs.copyHistory;
     }
 }
 

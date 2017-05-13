@@ -63,7 +63,7 @@ class VKClient extends Client {
         let text = postData.text;
         let date = new Date(postData.date * 1000);
 
-        let photos = VKPhotoParser.parse(postData.attachments || [], 604);
+        let photos = VKPhotoParser.parse(postData.attachments || [], 807);
 
         return {
             id: postData[idField],
@@ -86,14 +86,12 @@ class VKClient extends Client {
             let basicProperties = this._parseBasicPostData(item, 'post_id', 'source_id', profiles, groups);
 
             let copyHistory = (item.copy_history || []).map((copy) => {
-                this._parseBasicPostData(copy, 'id', 'from_id', profiles, groups)
+                return this._parseBasicPostData(copy, 'id', 'from_id', profiles, groups)
             });
 
             Object.assign(attributes, basicProperties, { copyHistory: copyHistory });
 
             return new VKPost(this, attributes);
-        }).filter((item) => {
-            return !!item.text;
         });
     }
 

@@ -10,3 +10,11 @@
                 .like-count {{ item.likesCount }}
             .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
         .text {{ item.text }}
+        .photos(ng-if='item.photos.length')
+            img.photo(ng-repeat='photo in item.photos' ng-src='{{ photo.smallURL }}')
+        .reposts(ng-if='item.copyHistory.length')
+            .repost(ng-repeat='repost in item.copyHistory')
+                .source-name {{ repost.originName }}
+                .text {{ repost.postText }}
+                .photos(ng-if='item.photos.length')
+                    .photo(ng-repeat='photo in repost.photos' ng-src='{{ photo.smallURL }}')
