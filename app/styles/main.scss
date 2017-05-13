@@ -186,6 +186,35 @@ header {
       white-space: pre-wrap;
       word-wrap: break-word;
     }
+
+    .photos {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-start;
+      align-content: center;
+      padding: 5px;
+      background-color: $background-color;
+      margin: 5px 0;
+      border-radius: 5px;
+      .photo {
+        margin: 5px;
+        border-radius: 3px;
+        width: auto;
+        max-width: calc(100% - 10px);
+      }
+    }
+
+    .reposts {
+      border: none;
+      .repost {
+        border-top: solid 2px lightblue;
+        .source-name {
+          font-size: small;
+        }
+      }
+    }
   }
 }
 

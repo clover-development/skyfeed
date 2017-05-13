@@ -2,6 +2,7 @@ const VKApi = require('node-vkapi');
 const Client = require('./client');
 const VKPost = require('../posts/vk-post');
 const VKConversation = require('../conversations/vk-conversation');
+const VKPhotoParser = require('../toolkit/vk-photo-parser');
 
 class VKClient extends Client {
     constructor(args) {
@@ -49,32 +50,48 @@ class VKClient extends Client {
         });
     }
 
+    _parseBasicPostData (postData, idField, sourceIDField, profiles, groups) {
+        let sourceID = parseInt(postData[sourceIDField]);
+        let origin;
+        if (sourceID > 0) {
+            origin = profiles.find((p) => { return parseInt(p.id) === sourceID });
+        } else {
+            origin = groups.find((g) => { return parseInt(g.id) === -sourceID });
+        }
+        let originPhoto = origin.photo_100;
+        let originName = origin.screen_name;
+        let text = postData.text;
+        let date = new Date(postData.date * 1000);
+
+        let photos = VKPhotoParser.parse(postData.attachments || [], 807);
+
+        return {
+            id: postData[idField],
+            sourceID: sourceID,
+            originPhoto: originPhoto,
+            originName: originName,
+            postText: text,
+            postDate: date,
+            photos: photos
+        }
+    }
+
     parsePosts(items, groups, profiles) {
         return items.map((item) => {
-            let sourceID = parseInt(item.source_id);
-            let origin;
-            if (sourceID > 0) {
-                origin = profiles.find((p) => { return parseInt(p.id) === sourceID });
-            } else {
-                origin = groups.find((g) => { return parseInt(g.id) === -sourceID });
-            }
-            let originPhoto = origin.photo_100;
-            let originName = origin.screen_name;
-            let postText = item.text;
-            let postDate = new Date(item.date * 1000);
-
-            return new VKPost(this, {
-                id: item.post_id,
-                sourceID: sourceID,
-                originPhoto: originPhoto,
-                originName: originName,
-                postText: postText,
-                postDate: postDate,
+            let attributes = {
                 liked: parseInt(item.likes.user_likes) === 1,
                 likesCount: parseInt(item.likes.count)
+            };
+
+            let basicProperties = this._parseBasicPostData(item, 'post_id', 'source_id', profiles, groups);
+
+            let copyHistory = (item.copy_history || []).map((copy) => {
+                return this._parseBasicPostData(copy, 'id', 'from_id', profiles, groups)
             });
-        }).filter((item) => {
-            return !!item.text;
+
+            Object.assign(attributes, basicProperties, { copyHistory: copyHistory });
+
+            return new VKPost(this, attributes);
         });
     }
 
