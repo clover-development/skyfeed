@@ -248,6 +248,48 @@ header {
   }
 }
 
+.header-title {
+  color: #66768F;
+  text-decoration: none;
+  background: #EAECF0;
+  padding: 6px 12px;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
+  font-weight: 900;
+}
+
+.sizefix {
+  box-sizing: border-box;
+}
+
+.textfield-wrap {
+  padding: 8px 12px;
+
+  textarea.textfield {
+    display: block;
+    height: 55px;
+    width: 100%;
+    margin: 0 0 8px;
+    padding: 4px 5px;
+    border-radius: 3px;
+    border: 1px solid #D4D7E2;
+    resize: none!important;
+    outline: none!important;
+    font-size: 12px;
+  }
+
+  .send-button {
+    padding: 7px 14px;
+    background: #5F7FBA;
+    border-radius: 2px;
+    color: #FFF;
+    text-shadow: 0 1px 0 #456489;
+    font-size: 13px;
+    border: 0;
+    cursor: pointer!important;
+  }
+}
+
 table {
   width: 100%;
   background: #f2f5f7;

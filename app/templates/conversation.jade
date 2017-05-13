@@ -1,3 +1,8 @@
+.header-title {{ conversation.conversationTitle }}
+.textfield-wrap.sizefix
+  textarea.textfield.sizefix(ng-model='messageBody' placeholder='Enter a message...', autofocus='true', maxlength='4096')
+  button.send-button(ng-click='sendMessage(messageBody)') Send
+
 table
   tr(ng-repeat="message in messages")
     td

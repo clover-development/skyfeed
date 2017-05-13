@@ -65,6 +65,21 @@ class VKConversation extends Conversation {
             });
         });
     }
+
+    sendMessage(message) {
+        let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
+
+        let params = {
+            message: message,
+            peer_id: peerID
+        };
+
+        this.apiClient.call('messages.send', params).then(res => {
+            self.parseMessages(res.items, (parsedDialogs) => {
+                callback(parsedDialogs);
+            });
+        });
+    }
 }
 
 module.exports = VKConversation;
