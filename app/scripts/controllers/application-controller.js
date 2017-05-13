@@ -17,4 +17,11 @@ skyfeed.controller('ApplicationController', function ($scope, $state) {
     ipcRenderer.on('logout-success', function () { $scope.updateLogins(); });
 
     $scope.logins = loginService.getLogins();
+
+    $scope.switchPhotoSize = function (photo) {
+        let temp = photo.smallURL;
+        photo.smallURL = photo.bigURL;
+        photo.bigURL = temp;
+        $scope.$apply();
+    }
 });

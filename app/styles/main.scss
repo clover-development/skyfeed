@@ -201,6 +201,8 @@ header {
       .photo {
         margin: 5px;
         border-radius: 3px;
+        width: auto;
+        max-width: calc(100% - 10px);
       }
     }
 
