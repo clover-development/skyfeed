@@ -3,6 +3,8 @@
         img.avatar(src='{{ item.conversationPhoto }}')
         .info
             .user-name {{ item.conversationTitle }}
-            .last-message {{ item.conversationText }}
+            .last-message
+                span(ng-if='item.isMyMessage') Me: 
+                span {{ item.conversationText }}
         .statuses
             .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
