@@ -11,6 +11,7 @@ class VKConversation extends Conversation {
         this.conversationTitle = attrs.conversationTitle;
         this.conversationText = attrs.conversationText;
         this.conversationPhoto = attrs.conversationPhoto;
+        this.isConversationRead = attrs.isConversationRead;
     }
 
     parseMessages(items, callback) {
@@ -21,7 +22,6 @@ class VKConversation extends Conversation {
                 id: item.id,
                 userID: item.user_id,
                 text: item.body,
-                isRead: item.read_state,
                 isMyMessage: item.out,
                 date: date
             }

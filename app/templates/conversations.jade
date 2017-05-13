@@ -1,5 +1,5 @@
 .conversations
-    .conversation(ng-repeat="item in items" ui-sref='app.conversation({conversation: item})')
+    .conversation(ng-repeat="item in items" ng-class='item.isConversationRead ? "read" : "unread"' ui-sref='app.conversation({conversation: item})')
         img.avatar(src='{{ item.conversationPhoto }}')
         .info
             .user-name {{ item.conversationTitle }}

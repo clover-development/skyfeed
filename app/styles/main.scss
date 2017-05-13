@@ -189,6 +189,8 @@ header {
   }
 }
 
+.unread { background-color: lighten(lightblue, 15)!important; }
+
 .conversations {
   background: $background-color;
   box-sizing: border-box;
@@ -215,22 +217,26 @@ header {
       border-radius: 25px;
       box-sizing: border-box;
     }
+
     .info {
       flex-grow: 1;
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
       justify-content: space-around;
+
       .user-name {
         font-size: large;
         font-weight: bold;
       }
+
       .last-message {
         white-space: pre-wrap;
         word-wrap: break-word;
         word-break: break-word;
       }
     }
+
     .statuses {
       align-self: center;
 

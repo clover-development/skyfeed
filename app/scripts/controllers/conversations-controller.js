@@ -19,7 +19,7 @@ skyfeed.controller('ConversationsController', function ($scope) {
               $scope.fetchCount--;
               if ($scope.fetchCount === 0) { $scope.$apply(); }
           });
-      })
+      });
   };
 
   $scope.load();

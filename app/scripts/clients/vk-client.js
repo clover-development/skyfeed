@@ -94,6 +94,7 @@ class VKClient extends Client {
                 let conversationText = item.message.body;
                 let conversationPhoto = item.message.photo_100;
                 let conversationTitle = item.message.title;
+                let isConversationRead = item.message.read_state
 
                 if (conversationTitle === ' ... ' || conversationTitle === '') {
                     conversationTitle = (user && user.fullName);
@@ -105,7 +106,8 @@ class VKClient extends Client {
                     chatID: item.message.chat_id,
                     conversationTitle: conversationTitle,
                     conversationText: conversationText,
-                    conversationPhoto: conversationPhoto || (user && user.conversationPhoto)
+                    conversationPhoto: conversationPhoto || (user && user.conversationPhoto),
+                    isConversationRead: isConversationRead
                 });
             });
             callback(result);
