@@ -1,4 +1,4 @@
-const loginService = require('../login-service-renderer');
+const state = require('../shared-state');
 
 class LoginIdentifiable {
     constructor(loginID) {
@@ -6,7 +6,7 @@ class LoginIdentifiable {
     }
 
     getLogin() {
-        return loginService.findLogin(this.loginID)
+        return state.logins.find((login) => { return login.id == this.loginID })
     }
 
     getAPIClient() {

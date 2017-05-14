@@ -9,12 +9,7 @@ function anyLogin() {
     return !empty(getLogins());
 }
 
-function findLogin(loginID) {
-    return state.logins.find((login) => { return login.id == loginID });
-}
-
 module.exports = {
     getLogins: getLogins,
-    anyLogin: anyLogin,
-    findLogin: findLogin
+    anyLogin: anyLogin
 };
