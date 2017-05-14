@@ -1,4 +1,4 @@
-const Conversation = require('./conversation');
+const Conversation = require('../base/conversation');
 
 class TwitterConversation extends Conversation {}
 

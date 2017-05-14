@@ -7,8 +7,8 @@ const path = require('path');
 const url = require('url');
 const oauthLogin = require('./oauth-login');
 const loginService = require('./login-service-main');
-const VKClient = require('./clients/vk-client');
-const TwitterClient = require('./clients/twitter-client');
+const VKClient = require('./vk/vk-client');
+const TwitterClient = require('./twitter/twitter-client');
 const shared = require('./shared-state');
 
 let mainWindow = null;

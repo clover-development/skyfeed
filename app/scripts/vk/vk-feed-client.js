@@ -1,6 +1,6 @@
-const FeedClient = require('./feed-client');
-const VKPhotoParser = require('../toolkit/vk-photo-parser');
-const VKPost = require('../posts/vk-post');
+const FeedClient = require('../base/feed-client');
+const VKPhotoParser = require('./vk-photo-parser');
+const VKPost = require('./vk-post');
 
 class VKFeedClient extends FeedClient {
     constructor(loginID) {

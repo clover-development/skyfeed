@@ -1,5 +1,5 @@
-const ConversationsClient = require('./conversaions-client');
-const VKConversation = require('../conversations/vk-conversation');
+const ConversationsClient = require('../base/conversaions-client');
+const VKConversation = require('./vk-conversation');
 const pageSize = 50;
 
 class VKConversationsClient extends ConversationsClient {

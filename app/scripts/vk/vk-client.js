@@ -1,7 +1,7 @@
 const VKApi = require('node-vkapi');
-const Client = require('./client');
-const VKConversationsClient = require('../conversations-clients/vk-conversations-client');
-const VKFeedClient = require('../feed-clients/vk-feed-client');
+const Client = require('../base/client');
+const VKConversationsClient = require('./vk-conversations-client');
+const VKFeedClient = require('./vk-feed-client');
 
 class VKClient extends Client {
     constructor(args) {

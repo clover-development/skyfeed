@@ -1,6 +1,6 @@
-const FeedClient = require('./feed-client');
-const TwitterPhotosParser = require('../toolkit/twitter-photo-parser');
-const TwitterPost = require('../posts/twitter-post');
+const FeedClient = require('../base/feed-client');
+const TwitterPhotosParser = require('./twitter-photo-parser');
+const TwitterPost = require('./twitter-post');
 
 class TwitterFeedClient extends FeedClient {
     constructor(loginID) {

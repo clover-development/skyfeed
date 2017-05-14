@@ -1,12 +1,8 @@
 const loginService = require('../login-service-renderer');
 
-class FeedClient {
+class LoginIdentifiable {
     constructor(loginID) {
         this.loginID = loginID;
-    }
-
-    getPosts(callback) {
-        callback([]);
     }
 
     getLogin() {
@@ -18,4 +14,4 @@ class FeedClient {
     }
 }
 
-module.exports = FeedClient;
+module.exports = LoginIdentifiable;

@@ -1,5 +1,5 @@
-const Conversation = require('./conversation');
-const VKPhotoParser = require('../toolkit/vk-photo-parser');
+const Conversation = require('../base/conversation');
+const VKPhotoParser = require('./vk-photo-parser');
 
 class VKConversation extends Conversation {
     constructor(loginID, attrs) {

@@ -1,4 +1,4 @@
-const ConversationsClient = require('./conversaions-client');
+const ConversationsClient = require('../base/conversaions-client');
 
 class TwitterConversationsClient extends ConversationsClient {
     constructor(loginID) {

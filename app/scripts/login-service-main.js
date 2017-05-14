@@ -1,7 +1,7 @@
 const storage = require('electron-json-storage');
 const empty = require('is-empty');
 const state = require('./shared-state');
-const clientsClassMap = require('./clients/map');
+const clientsClassMap = require('./base/map');
 
 state.logins = [];
 
