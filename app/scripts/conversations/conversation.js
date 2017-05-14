@@ -1,7 +1,6 @@
 const loginService = require('../login-service-renderer');
 
 class Conversation {
-
     constructor(loginID, attrs) {
         this.loginID = loginID;
 
