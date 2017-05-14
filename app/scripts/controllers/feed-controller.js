@@ -9,7 +9,7 @@ skyfeed.controller('FeedController', function ($scope, $state) {
         if ($scope.fetchCount > 0) { return }
 
         let logins = loginService.getLogins();
-        if (!logins.length) { return $state.go('app.login'); }
+        if (!loginService.anyLogin()) { return $state.go('app.login'); }
 
         logins.forEach(function (login) {
             $scope.fetchCount++;
