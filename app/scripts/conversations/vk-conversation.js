@@ -6,6 +6,7 @@ class VKConversation extends Conversation {
         super();
         this.client = client;
         this.apiClient = this.client.apiClient;
+        this.offset = 0;
         Object.assign(this, attrs);
     }
 
@@ -30,7 +31,14 @@ class VKConversation extends Conversation {
         let self = this;
         let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
 
-        this.apiClient.call('messages.getHistory', { count: 50, peer_id: peerID }).then(res => {
+        let params = {
+          count: 50,
+          offset: this.offset,
+          peer_id: peerID
+        }
+
+        this.apiClient.call('messages.getHistory', params).then(res => {
+            this.offset += 50;
             self.parseMessages(res.items, (parsedDialogs) => {
                 callback(parsedDialogs);
             });
