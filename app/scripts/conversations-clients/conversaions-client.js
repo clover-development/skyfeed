@@ -1,11 +1,12 @@
 const loginService = require('../login-service-renderer');
 
-class Conversation {
-
-    constructor(loginID, attrs) {
+class ConversationsClient {
+    constructor(loginID) {
         this.loginID = loginID;
+    }
 
-        Object.assign(this, attrs);
+    getDialogs(callback) {
+        callback([]);
     }
 
     getLogin() {
@@ -17,4 +18,4 @@ class Conversation {
     }
 }
 
-module.exports = Conversation;
+module.exports = ConversationsClient;

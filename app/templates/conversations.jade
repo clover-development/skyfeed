@@ -7,4 +7,4 @@
                 span(ng-if='item.isMyMessage') Me: 
                 span {{ item.conversationText }}
         .statuses
-            .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
+            .source(ng-style='item.getLogin().htmlColor()') {{ item.getLogin().type }}

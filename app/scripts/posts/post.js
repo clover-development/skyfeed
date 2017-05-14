@@ -1,7 +1,8 @@
+const loginService = require('../login-service-renderer');
+
 class Post {
-    constructor(client, attrs) {
-        this.client = client;
-        this.apiClient = client.apiClient;
+    constructor(loginID, attrs) {
+        this.loginID = loginID;
         this.id = attrs.id;
         this.text = attrs.postText;
         this.date = attrs.postDate;
@@ -11,6 +12,14 @@ class Post {
         this.likesCount = attrs.likesCount;
         this.photos = attrs.photos;
         this.copyHistory = attrs.copyHistory;
+    }
+
+    getLogin() {
+        return loginService.findLogin(this.loginID)
+    }
+
+    getAPIClient() {
+        return this.getLogin().apiClient;
     }
 }
 

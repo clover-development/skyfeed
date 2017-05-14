@@ -15,7 +15,7 @@ class TwitterPost extends Post {
         this.isBeingLiked = true;
         let method = this.liked ? 'favorites/destroy' : 'favorites/create';
 
-        this.apiClient.post(method, params, (error, tweet, response) => {
+        this.getAPIClient().post(method, params, (error, tweet, response) => {
             this.isBeingLiked = false;
             if (!!error) { console.log('Twitter like error: ', error); callback(error, this) }
 

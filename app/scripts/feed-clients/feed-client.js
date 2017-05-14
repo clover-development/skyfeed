@@ -1,15 +1,16 @@
 const loginService = require('../login-service-renderer');
 
-class Conversation {
-
-    constructor(loginID, attrs) {
+class FeedClient {
+    constructor(loginID) {
         this.loginID = loginID;
+    }
 
-        Object.assign(this, attrs);
+    getPosts(callback) {
+        callback([]);
     }
 
     getLogin() {
-        return loginService.findLogin(this.loginID);
+        return loginService.findLogin(this.loginID)
     }
 
     getAPIClient() {
@@ -17,4 +18,4 @@ class Conversation {
     }
 }
 
-module.exports = Conversation;
+module.exports = FeedClient;

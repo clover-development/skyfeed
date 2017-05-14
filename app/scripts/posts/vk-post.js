@@ -3,8 +3,8 @@ const unirest = require('unirest');
 
 class VKPost extends Post {
 
-    constructor(client, args) {
-        super(client, args);
+    constructor(loginID, args) {
+        super(loginID, args);
         this.sourceID = args.sourceID;
         this.isBeingLiked = false;
     }
@@ -23,7 +23,7 @@ class VKPost extends Post {
     }
 
     _addLike(params, callback) {
-        this.apiClient.call('likes.add', params).then((res) => {
+        this.getAPIClient().call('likes.add', params).then((res) => {
             this.liked = true;
             this.likesCount = res.likes;
             this.isBeingLiked = false;
@@ -36,7 +36,7 @@ class VKPost extends Post {
     }
 
     _deleteLike(params, callback) {
-        this.apiClient.call('likes.delete', params).then((res) => {
+        this.getAPIClient().call('likes.delete', params).then((res) => {
             this.liked = false;
             this.likesCount = res.likes;
             this.isBeingLiked = false;

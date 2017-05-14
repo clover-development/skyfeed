@@ -2,12 +2,42 @@ const Conversation = require('./conversation');
 const VKPhotoParser = require('../toolkit/vk-photo-parser');
 
 class VKConversation extends Conversation {
-    constructor(client, attrs) {
-        super();
-        this.client = client;
-        this.apiClient = this.client.apiClient;
+    constructor(loginID, attrs) {
+        super(loginID, attrs);
         this.offset = 0;
-        Object.assign(this, attrs);
+    }
+
+    getMessages(callback) {
+        let params = {
+            count: 50,
+            offset: this.offset,
+            peer_id: this.peerID()
+        };
+
+        this.getAPIClient().call('messages.getHistory', params).then(res => {
+            this.offset += 50;
+            this.parseMessages(res.items, (parsedDialogs) => {
+                callback(parsedDialogs);
+            });
+        });
+    }
+
+    sendMessage(message, callback) {
+        let params = {
+            message: message,
+            peer_id: this.peerID()
+        };
+
+        this.getAPIClient().call('messages.send', params).then(res => {
+            callback(null, {
+                id: res,
+                userID: this.peerID(),
+                text: message,
+                isMyMessage: 1,
+                date: new Date(),
+                photos: []
+            })
+        });
     }
 
     parseMessages(items, callback) {
@@ -27,43 +57,8 @@ class VKConversation extends Conversation {
         callback(result);
     }
 
-    getMessages(callback) {
-        let self = this;
-        let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
-
-        let params = {
-            count: 50,
-            offset: this.offset,
-            peer_id: peerID
-        };
-
-        this.apiClient.call('messages.getHistory', params).then(res => {
-            this.offset += 50;
-            self.parseMessages(res.items, (parsedDialogs) => {
-                callback(parsedDialogs);
-            });
-        });
-    }
-
-    sendMessage(message, callback) {
-        let self = this;
-        let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
-
-        let params = {
-            message: message,
-            peer_id: peerID
-        };
-
-        this.apiClient.call('messages.send', params).then(res => {
-            callback(null, {
-                id: res,
-                userID: peerID,
-                text: message,
-                isMyMessage: 1,
-                date: new Date(),
-                photos: []
-            })
-        });
+    peerID() {
+        return this.chatID ? this.chatID + 2000000000 : this.userID;
     }
 }
 

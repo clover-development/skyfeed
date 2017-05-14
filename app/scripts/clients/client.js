@@ -6,8 +6,9 @@ class Client {
         this.active = true;
     }
 
-    // This function fetches the posts from users news feed
-    getPosts(page = 0, callback) { }
+    getPosts(page = 0, callback) { callback([]) }
+
+    getDialogs(callback) { callback([]) }
 
     getCommonAttributes() {
         return {

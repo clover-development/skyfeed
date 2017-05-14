@@ -8,7 +8,7 @@
             .like-block
                 .like.icon(ng-class='item.liked ? "icon-star-full" : "icon-star-empty"' ng-click='switchLike(item)')
                 .like-count {{ item.likesCount }}
-            .source(ng-style='item.client.htmlColor()') {{ item.client.type }}
+            .source(ng-style='item.getLogin().htmlColor()') {{ item.getLogin().type }}
         .text {{ item.text }}
         .photos(ng-if='item.photos.length')
             img.photo(ng-repeat='photo in item.photos' ng-src='{{ photo.smallURL }}' ng-click='switchPhotoSize(photo)')
