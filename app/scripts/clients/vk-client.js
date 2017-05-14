@@ -12,6 +12,7 @@ class VKClient extends Client {
         this.token = args.token;
         this.id = this.token;
         this.type = 'vk';
+        this.offset = 0;
     }
 
     getAttributes() {
@@ -96,7 +97,14 @@ class VKClient extends Client {
     }
 
     getDialogs(callback) {
-        this.apiClient.call('messages.getDialogs', {count: 50, offset: 0, preview_length: 100}).then(res => {
+        let params = {
+          count: 50,
+          offset: this.offset,
+          preview_length: 100
+        }
+
+        this.apiClient.call('messages.getDialogs', params).then(res => {
+            this.offset += 50;
             this.parseDialogs(res.items, (parsedDialogs) => {
                 callback(parsedDialogs);
             });
