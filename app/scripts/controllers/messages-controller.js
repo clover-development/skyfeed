@@ -1,7 +1,7 @@
 const loginService = require('../login-service-renderer');
 const skyfeed = require('../angular-skyfeed');
 
-skyfeed.controller('ConversationController', function ($scope, $stateParams) {
+skyfeed.controller('MessagesController', function ($scope, $stateParams) {
     $scope.conversation = $stateParams.conversation;
     $scope.messageBody = "";
     $scope.messages = [];
@@ -16,7 +16,7 @@ skyfeed.controller('ConversationController', function ($scope, $stateParams) {
         $scope.$apply();
         fetch = false;
       });
-    }
+    };
 
     $scope.sendMessage = function(messageBody){
         $scope.conversation.sendMessage(messageBody, (error, message) => {

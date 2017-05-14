@@ -41,10 +41,10 @@ skyfeed.config([
             url: '/conversations',
             controller: 'ConversationsController',
             templateUrl: 'templates/conversations.jade'
-        }).state('app.conversation', {
-            url: '/conversation',
-            controller: 'ConversationController',
-            templateUrl: 'templates/conversation.jade',
+        }).state('app.messages', {
+            url: '/messages',
+            controller: 'MessagesController',
+            templateUrl: 'templates/messages.jade',
             params: { conversation: null }
         }).state('app.login', {
             url: '/login',
