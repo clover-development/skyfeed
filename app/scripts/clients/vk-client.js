@@ -30,9 +30,9 @@ class VKClient extends Client {
         this.apiClient.call('users.get', params).then(res => {
             let result = res.map((item) => {
                 return {
-                  id: item.id,
-                  fullName: `${item.first_name} ${item.last_name}`,
-                  conversationPhoto: item.photo_50
+                    id: item.id,
+                    fullName: `${item.first_name} ${item.last_name}`,
+                    conversationPhoto: item.photo_50
                 }
             });
             callback(result);
@@ -98,10 +98,10 @@ class VKClient extends Client {
 
     getDialogs(callback) {
         let params = {
-          count: 50,
-          offset: this.offset,
-          preview_length: 100
-        }
+            count: 50,
+            offset: this.offset,
+            preview_length: 100
+        };
 
         this.apiClient.call('messages.getDialogs', params).then(res => {
             this.offset += 50;

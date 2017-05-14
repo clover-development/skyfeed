@@ -17,9 +17,7 @@ class Client {
     }
 
     htmlColor() {
-        return {
-            'color': this.color
-        };
+        return { 'color': this.color };
     }
 
     switchActive() {

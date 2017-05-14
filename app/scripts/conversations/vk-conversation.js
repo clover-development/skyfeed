@@ -32,10 +32,10 @@ class VKConversation extends Conversation {
         let peerID = this.chatID ? this.chatID + 2000000000 : this.userID;
 
         let params = {
-          count: 50,
-          offset: this.offset,
-          peer_id: peerID
-        }
+            count: 50,
+            offset: this.offset,
+            peer_id: peerID
+        };
 
         this.apiClient.call('messages.getHistory', params).then(res => {
             this.offset += 50;

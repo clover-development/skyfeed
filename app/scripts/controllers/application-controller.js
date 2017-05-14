@@ -22,6 +22,5 @@ skyfeed.controller('ApplicationController', function ($scope, $state) {
         let temp = photo.smallURL;
         photo.smallURL = photo.bigURL;
         photo.bigURL = temp;
-        $scope.$apply();
     }
 });
