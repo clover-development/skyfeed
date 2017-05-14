@@ -11,10 +11,10 @@
             .source(ng-style='item.getLogin().htmlColor()') {{ item.getLogin().type }}
         .text {{ item.text }}
         .photos(ng-if='item.photos.length')
-            img.photo(ng-repeat='photo in item.photos' ng-src='{{ photo.smallURL }}' ng-click='switchPhotoSize(photo)')
+            img.photo(ng-repeat='photo in item.photos' ng-src='{{ photo.smallURL | trusted }}' ng-click='switchPhotoSize(photo)')
         .reposts(ng-if='item.copyHistory.length')
             .repost(ng-repeat='repost in item.copyHistory')
                 .source-name {{ repost.originName }}
                 .text {{ repost.postText }}
                 .photos(ng-if='item.photos.length')
-                    .photo(ng-repeat='photo in repost.photos' ng-src='{{ photo.smallURL }}' ng-click='switchPhotoSize(photo)')
+                    .photo(ng-repeat='photo in repost.photos' ng-src='{{ photo.smallURL | trusted }}' ng-click='switchPhotoSize(photo)')

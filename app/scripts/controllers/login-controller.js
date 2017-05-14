@@ -3,9 +3,10 @@ const skyfeed = require('../angular-skyfeed');
 
 skyfeed.controller('LoginCtrl', function ($scope) {
     $scope.loginVk = function () {
-        ipcRenderer.send('vk-button-clicked', 'ping');
+        ipcRenderer.send('vk-button-clicked');
     };
+
     $scope.loginTwitter = function () {
-        ipcRenderer.send('twitter-button-clicked', 'ping');
+        ipcRenderer.send('twitter-button-clicked');
     };
 });
