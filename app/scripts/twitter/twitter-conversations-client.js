@@ -1,4 +1,5 @@
 const ConversationsClient = require('../base/conversaions-client');
+const TwitterConversation = require('../twitter/twitter-conversation');
 
 class TwitterConversationsClient extends ConversationsClient {
     constructor(loginID) {
@@ -6,26 +7,23 @@ class TwitterConversationsClient extends ConversationsClient {
     }
 
     getDialogs(callback) {
-        console.log('yo from tw get dialogs');
-
+        let self = this;
         let params = { count: 200 };
 
         let incoming = null;
         let outgoing = null;
 
         this.getAPIClient().get('direct_messages', params, function (error, messages) {
-            console.log(messages);
             if (!(messages || messages.length)) { incoming = []; }
             incoming = messages;
 
-            this.processMessages(incoming, outgoing, callback);
+            self.processMessages(incoming, outgoing, callback);
         });
         this.getAPIClient().get('direct_messages/sent', params, function (error, messages) {
-            console.log(messages);
             if (!(messages || messages.length)) { outgoing = []; }
             outgoing = messages;
 
-            this.processMessages(incoming, outgoing, callback);
+            self.processMessages(incoming, outgoing, callback);
         });
     }
 
@@ -47,17 +45,74 @@ class TwitterConversationsClient extends ConversationsClient {
             }
         }
 
-        let merged = [];
-        merged.push(...incoming);
-        merged.push(...outgoing);
-
         let conversations = {};
-        let sobesedniki = [];
 
-        merged.forEach((rawMessage) => {
-
+        incoming.forEach((rawMessage) => {
+            let sobesednikID = rawMessage.sender_id_str;
+            if (!conversations[sobesednikID]) { conversations[sobesednikID] = [] }
+            rawMessage.isMyMessage = false;
+            conversations[sobesednikID].push(rawMessage);
+        });
+        outgoing.forEach((rawMessage) => {
+            let sobesednikID = rawMessage.recipient_id_str;
+            if (!conversations[sobesednikID]) { conversations[sobesednikID] = [] }
+            rawMessage.isMyMessage = true;
+            conversations[sobesednikID].push(rawMessage);
         });
 
+        let parsedConversations = [];
+
+        for (let sobesednikID in conversations) {
+            let conversationMessages = conversations[sobesednikID];
+
+            let message = conversationMessages[0];
+
+            let conversationAttributes = null;
+
+            if (message.isMyMessage) {
+                let sobesednik = message.recipient;
+
+                conversationAttributes = {
+                    id: sobesednikID,
+                    conversationTitle: sobesednik.screen_name,
+                    conversationPhoto: sobesednik.profile_image_url,
+                    isConversationRead: true,
+                    isMyMessage: true
+                }
+            } else {
+                let sobesednik = message.sender;
+
+                conversationAttributes = {
+                    id: sobesednikID,
+                    conversationTitle: sobesednik.screen_name,
+                    conversationPhoto: sobesednik.profile_image_url,
+                    isConversationRead: true,
+                    isMyMessage: true
+                }
+            }
+
+            let messages = conversationMessages.map((rawMessage) => {
+                return {
+                    id: rawMessage.id_str,
+                    text: rawMessage.text,
+                    isMyMessage: rawMessage.isMyMessage,
+                    date: new Date(rawMessage.created_at),
+                    photos: []
+                }
+            });
+
+            messages = messages.sort((a, b) => { return a.date - b.date });
+
+            conversationAttributes.conversationText = messages[0].text;
+            conversationAttributes.date = messages[0].date;
+            conversationAttributes.messages = messages;
+
+            parsedConversations.push(new TwitterConversation (this.loginID, conversationAttributes));
+        }
+
+        parsedConversations = parsedConversations.sort((a, b) => { return a.date - b.date });
+
+        callback(parsedConversations);
     }
 }
 
