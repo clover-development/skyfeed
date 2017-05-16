@@ -36,7 +36,7 @@ class TwitterClient extends Client {
     }
 
     getDialogs(callback) {
-        callback([]);
+        this.conversationsClient.getDialogs(callback);
     }
 }
 

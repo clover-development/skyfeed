@@ -33,7 +33,7 @@ class VKConversation extends Conversation {
                 id: res,
                 userID: this.peerID(),
                 text: message,
-                isMyMessage: 1,
+                isMyMessage: true,
                 date: new Date(),
                 photos: []
             })
@@ -49,7 +49,7 @@ class VKConversation extends Conversation {
                 id: item.id,
                 userID: item.user_id,
                 text: item.body,
-                isMyMessage: item.out,
+                isMyMessage: item.out === 1,
                 date: date,
                 photos: photos
             }

@@ -13,6 +13,8 @@ skyfeed.controller('ConversationsController', function ($scope) {
       if (!logins.length) { return $state.go('app.login'); }
 
       logins.forEach(function (login) {
+          console.log('yo forom dialogs load + ', login);
+
           login.getDialogs(dialogs => {
               $scope.items.push.apply($scope.items, dialogs);
               $scope.fetch = false;
