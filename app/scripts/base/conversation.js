@@ -6,6 +6,15 @@ class Conversation extends LoginIdentifiable {
 
         Object.assign(this, attrs);
     }
+
+    getMessages(callback) {
+        console.log('Not Implemented');
+        callback([])
+    }
+
+    resetPage() {
+        console.log('Not Implemented');
+    }
 }
 
 module.exports = Conversation;

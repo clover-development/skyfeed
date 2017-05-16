@@ -4,6 +4,10 @@ const VKPhotoParser = require('./vk-photo-parser');
 class VKConversation extends Conversation {
     constructor(loginID, attrs) {
         super(loginID, attrs);
+        this.resetPage();
+    }
+
+    resetPage() {
         this.offset = 0;
     }
 
