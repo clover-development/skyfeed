@@ -2,6 +2,7 @@ const skyfeed = require('../angular-skyfeed');
 
 skyfeed.controller('MessagesController', function ($scope, $stateParams) {
     $scope.conversation = $stateParams.conversation;
+    $scope.conversation.resetPage();
     $scope.messageBody = "";
     $scope.messages = [];
     $scope.fetch = false;

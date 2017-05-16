@@ -101,7 +101,7 @@ class TwitterConversationsClient extends ConversationsClient {
                 }
             });
 
-            messages = messages.sort((a, b) => { return a.date - b.date });
+            messages = messages.sort((a, b) => { return b.date - a.date });
 
             conversationAttributes.conversationText = messages[0].text;
             conversationAttributes.date = messages[0].date;
@@ -110,7 +110,7 @@ class TwitterConversationsClient extends ConversationsClient {
             parsedConversations.push(new TwitterConversation (this.loginID, conversationAttributes));
         }
 
-        parsedConversations = parsedConversations.sort((a, b) => { return a.date - b.date });
+        parsedConversations = parsedConversations.sort((a, b) => { return b.date - a.date });
 
         callback(parsedConversations);
     }
