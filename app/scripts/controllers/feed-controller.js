@@ -1,24 +1,22 @@
 const loginService = require('../login-service-renderer');
 const skyfeed = require('../angular-skyfeed');
+const postsAggregator = require('../aggregators/posts-aggregator');
 
 skyfeed.controller('FeedController', function ($scope, $state) {
     $scope.items = [];
-    $scope.fetchCount = 0;
+    $scope.fetching = false;
+    postsAggregator.reset();
 
     $scope.load = function () {
-        if ($scope.fetchCount > 0) { return }
+        if ($scope.fetching) { return }
 
-        let logins = loginService.getLogins();
         if (!loginService.anyLogin()) { return $state.go('app.login'); }
 
-        logins.forEach(function (login) {
-            $scope.fetchCount++;
-            login.getPosts(0, posts => {
-                $scope.items.push.apply($scope.items, posts);
-
-                $scope.fetchCount--;
-                if ($scope.fetchCount === 0) { $scope.$apply(); }
-            });
+        $scope.fetching = true;
+        postsAggregator.getPosts((posts) => {
+            $scope.items.push(...posts);
+            $scope.fetching = false;
+            $scope.$apply();
         });
     };
 

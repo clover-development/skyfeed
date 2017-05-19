@@ -10,7 +10,8 @@ class VKFeedClient extends FeedClient {
     getPosts(callback) {
         let params = {
             filters: 'post',
-            start_from: this.nextFromPosts || ''
+            start_from: this.nextFromPosts || '',
+            count: 50
         };
         this.getAPIClient().call('newsfeed.get', params).then(res => {
             this.nextFromPosts = res.next_from;

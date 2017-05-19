@@ -10,7 +10,7 @@ class TwitterFeedClient extends FeedClient {
     getPosts(callback) {
         let _this = this;
 
-        let maxCount = 100;
+        let maxCount = 50;
         let params = {count: maxCount};
         if (this.lastID) {
             params.max_id = this.lastID - 1;
