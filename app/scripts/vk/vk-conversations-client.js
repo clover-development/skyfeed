@@ -7,6 +7,11 @@ class VKConversationsClient extends ConversationsClient {
         super(loginID);
 
         this.offset = 0;
+        this.resetPage();
+    }
+
+    resetPage() {
+        this.offset = 0;
     }
 
     getDialogs(callback) {

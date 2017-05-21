@@ -7,6 +7,10 @@ class VKFeedClient extends FeedClient {
         super(loginID);
     }
 
+    resetPage() {
+        this.nextFromPosts = '';
+    }
+
     getPosts(callback) {
         let params = {
             filters: 'post',
