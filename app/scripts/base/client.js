@@ -6,7 +6,9 @@ class Client {
         this.active = true;
     }
 
-    getPosts(page = 0, callback) { callback([]) }
+    getPosts(page = 0, callback) {
+      callback([])
+    }
 
     getDialogs(callback) { callback([]) }
 

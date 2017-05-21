@@ -8,7 +8,7 @@ skyfeed.controller('FeedController', function ($scope, $state) {
     postsAggregator.reset();
 
     $scope.load = function () {
-        if ($scope.fetching) { return }
+        if ($scope.fetching) return
 
         if (!loginService.anyLogin()) { return $state.go('app.login'); }
 
