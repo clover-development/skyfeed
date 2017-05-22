@@ -7,6 +7,10 @@ class TwitterFeedClient extends FeedClient {
         super(loginID);
     }
 
+    resetPage() {
+        this.lastID = null;
+    }
+
     getPosts(callback) {
         let _this = this;
 

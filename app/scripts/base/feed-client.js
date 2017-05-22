@@ -5,6 +5,8 @@ class FeedClient extends LoginIdentifiable {
         super(loginID);
     }
 
+    resetPage() {}
+
     getPosts(callback) {
         callback([]);
     }

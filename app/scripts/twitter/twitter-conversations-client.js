@@ -4,9 +4,15 @@ const TwitterConversation = require('../twitter/twitter-conversation');
 class TwitterConversationsClient extends ConversationsClient {
     constructor(loginID) {
         super(loginID);
+        this.resetPage();
+    }
+
+    resetPage() {
+        this.fetched = false;
     }
 
     getDialogs(callback) {
+        if (this.fetched) { callback([]); return}
         let self = this;
         let params = { count: 200 };
 
@@ -109,7 +115,7 @@ class TwitterConversationsClient extends ConversationsClient {
 
             parsedConversations.push(new TwitterConversation (this.loginID, conversationAttributes));
         }
-
+        this.fetched = true;
         parsedConversations = parsedConversations.sort((a, b) => { return b.date - a.date });
 
         callback(parsedConversations);

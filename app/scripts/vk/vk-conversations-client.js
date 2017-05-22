@@ -7,6 +7,11 @@ class VKConversationsClient extends ConversationsClient {
         super(loginID);
 
         this.offset = 0;
+        this.resetPage();
+    }
+
+    resetPage() {
+        this.offset = 0;
     }
 
     getDialogs(callback) {
@@ -52,6 +57,7 @@ class VKConversationsClient extends ConversationsClient {
                 let conversationTitle = item.message.title;
                 let isConversationRead = item.message.read_state;
                 let isMyMessage = item.message.out;
+                let date = new Date(item.message.date * 1000);
 
                 if (conversationTitle === ' ... ' || conversationTitle === '') {
                     conversationTitle = (user && user.fullName);
@@ -61,6 +67,7 @@ class VKConversationsClient extends ConversationsClient {
                     id: item.message.id,
                     userID: item.message.user_id,
                     chatID: item.message.chat_id,
+                    date: date,
                     conversationTitle: conversationTitle,
                     conversationText: conversationText,
                     conversationPhoto: conversationPhoto || (user && user.conversationPhoto),

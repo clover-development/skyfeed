@@ -7,8 +7,8 @@ let pageSize = 50;
 let page = 0;
 
 function reset() {
-    let buffer = [];
-    let subBuffers = {};
+    buffer = [];
+    subBuffers = {};
     initializeSubBuffers();
     page = 0;
 }
@@ -21,6 +21,8 @@ function checkLoginsPresence(callback) {
 
 function initializeSubBuffers() {
     loginService.getLogins().forEach((login) => {
+        login.feedClient.resetPage();
+
         if (!subBuffers[login.id]) {
             subBuffers[login.id] = [];
         }
