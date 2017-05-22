@@ -18,13 +18,18 @@ npm start
 ```
 stb.render(sokiable)
 ```
-### Install electron packager
+### Install electron packager and electron-forge
 ```
 sudo npm install electron-packager -g
+sudo npm install -g electron-forge
 ```
 ### Build native package
 ```
-electron-packager . --platform=linux --arch=x64
+electron-forge package --platform=linux --arch=x64
+```
+### Build distros (only works for current platform)
+```
+electron-forge make
 ```
 
 ## Debugging
