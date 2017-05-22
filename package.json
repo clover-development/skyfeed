@@ -8,17 +8,18 @@
   ],
   "license": "UNLICENSED",
   "private": "true",
-  "devDependencies": {},
+  "devDependencies": {
+    "electron-prebuilt-compile": "1.6.6"
+  },
   "dependencies": {
     "angular": "^1.6.3",
     "angular-ui-router": "^0.4.2",
     "build-url": "^1.0.9",
     "devtron": "^1.4.0",
-    "electron": "^1.4.1",
+    "electron-compile": "6.4.1",
+    "electron-prebuilt-compile": "1.6.6",
     "electron-debug": "^1.1.0",
     "electron-json-storage": "^3.0.5",
-    "electron-packager": "^8.3.0",
-    "electron-prebuilt-compile": "^1.6.6",
     "electron-pug": "^1.5.1",
     "electron-window": "^0.8.1",
     "fb": "^2.0.0",
@@ -36,6 +37,37 @@
   },
   "main": "app/scripts/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": ""
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": ""
+      }
+    }
   }
 }
