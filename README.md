@@ -16,7 +16,7 @@ npm start
 ```
 ### Code
 ```
-stb.render(sokiable)
+stb.render(skyfeed)
 ```
 ### Install electron packager and electron-forge
 ```
