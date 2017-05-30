@@ -8,28 +8,6 @@ let skyfeed = angular.module('skyfeed', [
 
 skyfeed.config([
     '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-        let skipIfLoggedIn = [
-            '$q', function($q) {
-                let deferred = $q.defer();
-                if (false) {
-                    deferred.reject();
-                } else {
-                    deferred.resolve();
-                }
-                return deferred.promise;
-            }
-        ];
-        let loginRequired = [
-            '$q', '$location', function($q, $location) {
-                let deferred = $q.defer();
-                if (true) {
-                    deferred.resolve();
-                } else {
-                    $location.path('/login');
-                }
-                return deferred.promise;
-            }
-        ];
         $stateProvider.state('app', {
             controller: 'ApplicationController',
             templateUrl: 'templates/layout.jade'
