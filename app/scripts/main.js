@@ -1,6 +1,4 @@
 const {app, ipcMain, BrowserWindow} = require('electron');
-// Require and activate debug tools
-require('electron-debug')({showDevTools: false});
 
 // Dependencies
 const path = require('path');
@@ -17,11 +15,10 @@ console.log('Application settings path is: ', app.getPath('userData'));
 
 function createWindow () {
     const iconPath = path.join(__dirname, '../images/icon.png');
-    mainWindow = new BrowserWindow({ width: 1800, height: 1000, icon: iconPath });
+    mainWindow = new BrowserWindow({ width: 800, height: 600, icon: iconPath });
     const indexPath = path.join(__dirname, '../index.jade');
     const indexUrl = url.format({ protocol: 'file', pathname: indexPath, slashes: true});
     mainWindow.loadURL(indexUrl);
-    mainWindow.openDevTools();
     mainWindow.webContents.on('did-finish-load', () => { mainWindow.show() });
     mainWindow.on('closed', () => { mainWindow = null });
 }
